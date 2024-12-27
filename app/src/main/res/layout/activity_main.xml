@@ -9,7 +9,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_gravity="bottom"
-        android:layout_marginTop="200dp"
+        android:layout_marginTop="90dp"
         android:src="@drawable/bg_rounded_top" />
 
     <LinearLayout
@@ -38,7 +38,7 @@
                     android:
                     android:fontFamily="@font/poppins_black"
                     android:text="Selamat Datang!"
-                    android:textColor="@color/black"
+                    android:textColor="@color/white"
                     android:textSize="26sp"
                     android:textStyle="bold" />
 
@@ -92,7 +92,7 @@
                 <androidx.cardview.widget.CardView
                     android:id="@+id/cvPesawat"
                     android:layout_width="match_parent"
-                    android:layout_height="150dp"
+                    android:layout_height="162dp"
                     android:layout_margin="10dp"
                     app:cardCornerRadius="10dp"
                     app:cardElevation="5dp"
@@ -114,20 +114,6 @@
                             android:textSize="30sp"
                             android:textStyle="bold" />
 
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="20dp"
-                            android:layout_marginTop="30dp"
-                            android:background="@drawable/bg_rounded_trans"
-                            android:backgroundTint="@color/white"
-                            android:backgroundTintMode="add"
-                            android:padding="6dp"
-                            android:text="Transportasi Udara"
-                            android:textColor="@color/primary"
-                            android:textSize="12sp"
-                            android:textStyle="bold" />
-
                     </LinearLayout>
 
                     <ImageView
@@ -143,7 +129,7 @@
                 <androidx.cardview.widget.CardView
                     android:id="@+id/cvKapal"
                     android:layout_width="match_parent"
-                    android:layout_height="150dp"
+                    android:layout_height="180dp"
                     android:layout_marginStart="10dp"
                     android:layout_marginEnd="10dp"
                     android:layout_marginBottom="10dp"
@@ -167,20 +153,6 @@
                             android:textSize="30sp"
                             android:textStyle="bold" />
 
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="20dp"
-                            android:layout_marginTop="30dp"
-                            android:background="@drawable/bg_rounded_trans"
-                            android:backgroundTint="@color/white"
-                            android:backgroundTintMode="add"
-                            android:padding="6dp"
-                            android:text="Transportasi Laut"
-                            android:textColor="@color/primary"
-                            android:textSize="12sp"
-                            android:textStyle="bold" />
-
                     </LinearLayout>
 
                     <ImageView
@@ -196,7 +168,7 @@
                 <androidx.cardview.widget.CardView
                     android:id="@+id/cvKereta"
                     android:layout_width="match_parent"
-                    android:layout_height="150dp"
+                    android:layout_height="180dp"
                     android:layout_marginStart="10dp"
                     android:layout_marginEnd="10dp"
                     android:layout_marginBottom="10dp"
@@ -218,20 +190,6 @@
                             android:text="Kereta"
                             android:textColor="@color/white"
                             android:textSize="30sp"
-                            android:textStyle="bold" />
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="20dp"
-                            android:layout_marginTop="30dp"
-                            android:background="@drawable/bg_rounded_trans"
-                            android:backgroundTint="@color/white"
-                            android:backgroundTintMode="add"
-                            android:padding="6dp"
-                            android:text="Transportasi Darat"
-                            android:textColor="@color/primary"
-                            android:textSize="12sp"
                             android:textStyle="bold" />
 
                     </LinearLayout>

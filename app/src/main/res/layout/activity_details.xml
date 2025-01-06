@@ -107,7 +107,7 @@
                     android:textSize="16sp" />
             </LinearLayout>
 
-            <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+            <ScrollView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:fillViewport="true">
@@ -137,6 +137,16 @@
                         android:fontFamily="@font/poppins_light"
                         android:text="Detailed description of the place"
                         android:textSize="14sp" />
+
+                    <Button
+                        android:id="@+id/BtnPilihJadwal"
+                        android:layout_width="268dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal"
+                        android:layout_marginTop="180dp"
+                        android:backgroundTint="@color/primary"
+                        android:text="Pilih Jadwal"
+                        android:textColor="@android:color/white" />
                 </LinearLayout>
             </ScrollView>
 
@@ -145,3 +155,4 @@
     </androidx.cardview.widget.CardView>
 
 </LinearLayout>
+

@@ -11,13 +11,24 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="?attr/colorPrimary"
-        android:padding="16dp"
         android:elevation="4dp">
+
+        <ImageView
+            android:id="@+id/backButtonbook"
+            android:layout_width="21dp"
+            android:layout_height="21dp"
+            android:layout_gravity="start|top"
+            android:layout_marginStart="18dp"
+            android:layout_marginTop="25dp"
+            android:background="@android:color/transparent"
+            android:contentDescription="Kembali"
+            android:src="@drawable/backwhite" />
 
         <TextView
             android:id="@+id/tvToolbarTitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginStart="15dp"
             android:text="Booking Lapangan"
             android:textColor="@android:color/white"
             android:textSize="20sp"
@@ -28,97 +39,89 @@
     <!-- Konten utama dalam ScrollView -->
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:padding="16dp">
+        android:layout_height="wrap_content"
+        android:padding="10dp">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
             android:orientation="vertical"
-            android:padding="8dp"
-            android:gravity="center_horizontal">
+            android:padding="8dp">
 
             <!-- TextView Nama Lapangan -->
             <TextView
                 android:id="@+id/tvNamaLapangan"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginBottom="4dp"
                 android:text="Nama Lapangan"
-                android:textSize="16sp"
-                android:layout_marginBottom="4dp" />
+                android:textSize="16sp" />
 
             <!-- TextView Harga -->
             <TextView
                 android:id="@+id/tvHarga"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginBottom="4dp"
                 android:text="Harga"
-                android:textSize="16sp"
-                android:layout_marginBottom="4dp" />
+                android:textSize="16sp" />
 
             <!-- TextView Lokasi -->
             <TextView
                 android:id="@+id/tvLokasi"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginBottom="16dp"
                 android:text="Lokasi"
-                android:textSize="16sp"
-                android:layout_marginBottom="16dp" />
+                android:textSize="16sp" />
 
             <!-- EditText untuk Nama -->
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginBottom="4dp"
                 android:text="Nama"
-                android:textSize="16sp"
-                android:layout_marginBottom="4dp" />
+                android:textSize="16sp" />
 
             <EditText
                 android:id="@+id/inputNama"
                 android:layout_width="match_parent"
                 android:layout_height="48dp"
+                android:layout_marginBottom="16dp"
                 android:hint="Masukkan Nama"
-                android:inputType="textPersonName"
-                android:layout_marginBottom="16dp" />
+                android:inputType="textPersonName" />
 
             <!-- EditText untuk Nomor Telepon -->
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginBottom="4dp"
                 android:text="Nomor Telepon"
-                android:textSize="16sp"
-                android:layout_marginBottom="4dp" />
+                android:textSize="16sp" />
 
             <EditText
                 android:id="@+id/inputTelepon"
                 android:layout_width="match_parent"
                 android:layout_height="48dp"
+                android:layout_marginBottom="16dp"
                 android:hint="Masukkan Nomor Telepon"
-                android:inputType="phone"
-                android:layout_marginBottom="16dp" />
+                android:inputType="phone" />
 
             <!-- DatePicker untuk Tanggal -->
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginBottom="4dp"
                 android:text="Tanggal Booking"
-                android:textSize="16sp"
-                android:layout_marginBottom="4dp" />
+                android:textSize="16sp" />
 
             <EditText
                 android:id="@+id/InputDate"
                 android:layout_width="match_parent"
                 android:layout_height="48dp"
-                android:hint="dd/MM/yyyy"
-                android:layout_marginBottom="16dp" />
-
-            <!-- GridView 15 kotak (5x3) -->
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Grid View (5x3)"
-                android:textSize="16sp"
-                android:layout_marginBottom="4dp" />
+                android:layout_marginBottom="16dp"
+                android:hint="dd/MM/yyyy" />
 
             <GridView
                 android:id="@+id/gridView"
@@ -131,17 +134,17 @@
                 android:stretchMode="columnWidth"
                 android:verticalSpacing="8dp" />
 
-            <!-- Button Bayar Booking -->
-            <Button
-                android:id="@+id/btnBayarBooking"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Bayar Booking"
-                android:backgroundTint="@color/primary"
-                android:textColor="@android:color/white" />
-
         </LinearLayout>
 
     </ScrollView>
+    <!-- Button Bayar Booking -->
+    <Button
+        android:id="@+id/btnBayarBooking"
+        android:layout_width="300dp"
+        android:layout_gravity="center"
+        android:layout_height="wrap_content"
+        android:backgroundTint="@color/primary"
+        android:text="Bayar Booking"
+        android:textColor="@android:color/white" />
 
 </LinearLayout>

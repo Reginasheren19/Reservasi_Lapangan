@@ -2,7 +2,9 @@ package com.example.reservasi_lapangan;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -24,6 +26,18 @@ public class BookingActivity extends AppCompatActivity {
         inputNama = findViewById(R.id.inputNama);
         inputTelepon = findViewById(R.id.inputTelepon);
         inputDate = findViewById(R.id.InputDate);
+
+        // Inisialisasi tombol back
+        ImageView backButtonbook = findViewById(R.id.backButtonbook);
+
+        // Listener untuk tombol back
+        backButtonbook.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish(); // Mengakhiri activity dan kembali ke sebelumnya
+            }
+        });
+
 
         // Ambil data dari Intent
         Intent intent = getIntent();

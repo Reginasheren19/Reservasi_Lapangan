@@ -8,12 +8,13 @@
     android:background="#F5F5F5"
     tools:context=".LoginActivity">
 
-    <!-- Hello Text -->
+    <!-- Welcome Text -->
     <TextView
         android:id="@+id/tvWelcome"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Welcome !"
+        android:fontFamily="@font/poppins_black"
         android:textSize="30sp"
         android:textColor="#000000"
         android:textStyle="bold"
@@ -21,23 +22,21 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        android:layout_marginTop="80dp"/>
+        android:layout_marginTop="100dp"
+        app:layout_constraintVertical_bias="0.1"/>
 
     <!-- App Logo -->
-
     <ImageView
         android:id="@+id/imgLogo"
         android:layout_width="100dp"
         android:layout_height="100dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginBottom="16dp"
+        android:layout_marginBottom="32dp"
         android:contentDescription="App Logo"
         android:src="@drawable/sports"
         app:layout_constraintBottom_toTopOf="@+id/etUsername"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tvWelcome"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/tvWelcome" />
 
     <EditText
         android:id="@+id/etUsername"

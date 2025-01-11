@@ -44,7 +44,7 @@ public class DetailsActivity extends AppCompatActivity {
             placeLocationTextView.setText(lokasi);
         }
         if (harga != null) {
-            placeHargaTextView.setText("Rp " + harga);
+            placeHargaTextView.setText(harga);
         }
         if (deskripsi != null) {
             placeDetailsTextView.setText(deskripsi);

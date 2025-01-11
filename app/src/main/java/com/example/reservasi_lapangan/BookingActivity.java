@@ -3,9 +3,11 @@ package com.example.reservasi_lapangan;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -13,6 +15,8 @@ public class BookingActivity extends AppCompatActivity {
 
     private TextView tvNamaLapangan, tvHarga, tvLokasi;
     private EditText inputNama, inputTelepon, inputDate;
+    private DatabaseHelper databaseHelper;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,5 +59,39 @@ public class BookingActivity extends AppCompatActivity {
         if (lokasi != null) {
             tvLokasi.setText(lokasi);
         }
+
+        // Inisialisasi DatabaseHelper
+        databaseHelper = new DatabaseHelper(this);
+
+        // Button bayar booking
+        Button btnBayarBooking = findViewById(R.id.btnBayarBooking);
+        btnBayarBooking.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                // Mendapatkan data input dari EditText
+                String nama = inputNama.getText().toString().trim();
+                String telepon = inputTelepon.getText().toString().trim();
+                String tanggalBooking = inputDate.getText().toString().trim();
+                String username = "user_example"; // Sesuaikan dengan nama user yang login
+
+                // Ambil ID lapangan dan harga dari Intent
+                int idLapangan = intent.getIntExtra("idLapangan", -1);
+                double totalHarga = Double.parseDouble(harga);
+
+                // Simpan transaksi booking ke database
+                boolean isSuccess = databaseHelper.insertTransaksiBooking(username, idLapangan, tanggalBooking, "09:00", "11:00", totalHarga, "Booked");
+
+                if (isSuccess) {
+                    Toast.makeText(BookingActivity.this, "Transaksi berhasil, lanjut ke pembayaran", Toast.LENGTH_SHORT).show();
+
+                    // Lanjut ke PaymentActivity
+                    Intent paymentIntent = new Intent(BookingActivity.this, PaymentActivity.class);
+                    paymentIntent.putExtra("totalHarga", totalHarga);
+                    startActivity(paymentIntent);
+                } else {
+                    Toast.makeText(BookingActivity.this, "Gagal melakukan transaksi", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
     }
 }

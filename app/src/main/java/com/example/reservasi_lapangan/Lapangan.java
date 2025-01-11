@@ -1,5 +1,7 @@
 package com.example.reservasi_lapangan;
 
+import java.text.NumberFormat;
+import java.util.Locale;
 
 public class Lapangan {
     private int id;
@@ -45,7 +47,11 @@ public class Lapangan {
     }
 
     public String getHarga() {
-        return String.valueOf(harga);
+        // Format harga menjadi "Rp xxx.xxx,00" dengan 2 desimal
+        NumberFormat format = NumberFormat.getInstance(new Locale("id", "ID"));
+        format.setMinimumFractionDigits(2);  // Menjaga 2 digit desimal
+        format.setMaximumFractionDigits(2);  // Membatasi 2 digit desimal
+        return "Rp " + format.format(harga);
     }
 
     public void setHarga(double harga) {

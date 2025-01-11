@@ -5,7 +5,6 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
-import android.util.Log;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -30,15 +29,28 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             "deskripsi TEXT, " +
             "gambar TEXT);"; // Menyimpan path atau URI gambar
 
+    // SQL untuk membuat tabel transaksi_booking tanpa foreign key id_user
+    private static final String CREATE_TABLE_TRANSAKSI_BOOKING = "CREATE TABLE transaksi_booking (" +
+            "id_transaksi INTEGER PRIMARY KEY AUTOINCREMENT, " +
+            "username TEXT NOT NULL, " +
+            "id_lapangan INTEGER, " +
+            "tanggal_booking TEXT NOT NULL, " +
+            "waktu_mulai TEXT NOT NULL, " +
+            "waktu_selesai TEXT NOT NULL, " +
+            "total_harga REAL NOT NULL, " +
+            "status TEXT NOT NULL, " +
+            "FOREIGN KEY(id_lapangan) REFERENCES lapangan(id_lapangan));";
+
     public DatabaseHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
     }
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        // Membuat tabel users dan lapangan
+        // Membuat tabel users, lapangan, dan transaksi_booking
         db.execSQL(CREATE_TABLE_USERS);
         db.execSQL(CREATE_TABLE_LAPANGAN);
+        db.execSQL(CREATE_TABLE_TRANSAKSI_BOOKING);  // Menambahkan pembuatan tabel transaksi_booking
 
         // Menambahkan data awal ke tabel lapangan
         insertInitialLapanganData(db);
@@ -49,6 +61,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         // Menghapus tabel lama jika ada dan membuat ulang
         db.execSQL("DROP TABLE IF EXISTS users");
         db.execSQL("DROP TABLE IF EXISTS lapangan");
+        db.execSQL("DROP TABLE IF EXISTS transaksi_booking");
         onCreate(db);
     }
 
@@ -64,6 +77,24 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return result != -1;
     }
 
+    // Metode untuk menyisipkan transaksi booking ke dalam tabel transaksi_booking
+    public boolean insertTransaksiBooking(String username, int idLapangan, String tanggalBooking, String waktuMulai, String waktuSelesai, double totalHarga, String status) {
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        ContentValues values = new ContentValues();
+        values.put("username", username);  // Menyimpan username langsung
+        values.put("id_lapangan", idLapangan);
+        values.put("tanggal_booking", tanggalBooking);
+        values.put("waktu_mulai", waktuMulai);
+        values.put("waktu_selesai", waktuSelesai);
+        values.put("total_harga", totalHarga);
+        values.put("status", status);
+
+        long result = db.insert("transaksi_booking", null, values);
+        db.close();
+        return result != -1;
+    }
+
     // Menambahkan data awal ke tabel lapangan
     private void insertInitialLapanganData(SQLiteDatabase db) {
         ContentValues values = new ContentValues();
@@ -72,7 +103,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         values.put("nama_lapangan", "Lapangan Futsal");
         values.put("lokasi", "Jl. Raya Malang No.1 Kavling A");
         values.put("harga", 100000);
-        values.put("deskripsi", "Lapangan futsal indoor dengan rumput sintetis berkualitas tinggi yang dirancang untuk memberikan pengalaman bermain yang nyaman dan aman bagi pemain. Lapangan dilengkapi dengan pencahayaan LED yang terang sehingga memungkinkan bermain di malam hari tanpa masalah visibilitas. Selain itu, terdapat fasilitas pendukung seperti ruang ganti yang bersih, kamar mandi dengan air panas, serta area parkir yang luas. Cocok untuk kegiatan olahraga rutin maupun turnamen futsal skala kecil. Lokasi strategis dan mudah dijangkau dari berbagai arah.");
+        values.put("deskripsi", "Lapangan futsal indoor dengan rumput sintetis berkualitas tinggi...");
         values.put("gambar", "lapangan_futsal");
         db.insert("lapangan", null, values);
 
@@ -81,7 +112,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         values.put("nama_lapangan", "Lapangan Basket");
         values.put("lokasi", "Jl. Raya Surabaya No.2 Blok B");
         values.put("harga", 120000);
-        values.put("deskripsi", "Lapangan basket outdoor dengan permukaan yang dilapisi cat anti-selip, dirancang untuk mengurangi risiko cedera pemain. Lapangan ini memiliki dua ring basket yang kokoh dan memenuhi standar nasional. Fasilitas pendukung meliputi tribun penonton, area duduk untuk istirahat, serta mesin penjual minuman otomatis. Pencahayaan lapangan memadai untuk permainan hingga malam hari, menjadikannya pilihan ideal bagi penggemar basket.");
+        values.put("deskripsi", "Lapangan basket outdoor dengan permukaan yang dilapisi cat anti-selip...");
         values.put("gambar", "lapangan_basket");
         db.insert("lapangan", null, values);
 
@@ -128,10 +159,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         values.put("harga", 180000);
         values.put("deskripsi", "Lapangan golf mini dengan 18 hole yang dirancang untuk memberikan pengalaman bermain golf santai bagi semua kalangan. Lapangan ini memiliki berbagai rintangan menarik dan cocok untuk keluarga maupun acara perusahaan. Fasilitas pendukung mencakup area parkir luas, kafe, dan toko perlengkapan golf. Lokasi sangat strategis dan memberikan suasana yang asri.");
         values.put("gambar", "lapangan_golfmini");
-        db.insert("lapangan", null, values);
-
-        // Tambahkan data lainnya sesuai kebutuhan...
-    }
+        db.insert("lapangan", null, values);    }
 
     // Metode untuk mengambil semua data lapangan
     public List<Lapangan> getAllLapangan() {

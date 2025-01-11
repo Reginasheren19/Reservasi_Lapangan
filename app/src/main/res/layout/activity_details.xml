@@ -50,7 +50,6 @@
                 android:id="@+id/scrollViewContent"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_above="@id/BtnPilihJadwal"
                 android:fillViewport="true">
 
                 <LinearLayout
@@ -87,7 +86,7 @@
 
                         <TextView
                             android:id="@+id/placeharga"
-                            android:layout_width="wrap_content"
+                            android:layout_width="116dp"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="4dp"
                             android:layout_marginTop="-3dp"
@@ -147,7 +146,8 @@
                         android:text="Detailed description of the place"
                         android:textSize="14sp" />
 
-                    tambahlan<Button
+                    <!-- Tombol Booking -->
+                    <Button
                         android:id="@+id/BtnPilihJadwal"
                         android:layout_width="300dp"
                         android:layout_height="wrap_content"

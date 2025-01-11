@@ -62,14 +62,79 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public boolean insertLapangan(String namaLapangan, String lokasi, double harga, String deskripsi, String gambar) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
-        values.put("nama_lapangan", namaLapangan);
-        values.put("lokasi", lokasi);
-        values.put("harga", harga);
-        values.put("deskripsi", deskripsi);
-        values.put("gambar", gambar); // Menambahkan path gambar
 
-        long result = db.insert("lapangan", null, values);
+        // Data lapangan 1
+        values.put("nama_lapangan", "Lapangan Futsal");
+        values.put("lokasi", "Jl. Raya Malang No.1 Kavling A");
+        values.put("harga", 100000);
+        values.put("deskripsi", "Lapangan futsal indoor dengan rumput sintetis berkualitas tinggi yang dirancang untuk memberikan pengalaman bermain yang nyaman dan aman bagi pemain. Lapangan dilengkapi dengan pencahayaan LED yang terang sehingga memungkinkan bermain di malam hari tanpa masalah visibilitas. Selain itu, terdapat fasilitas pendukung seperti ruang ganti yang bersih, kamar mandi dengan air panas, serta area parkir yang luas. Cocok untuk kegiatan olahraga rutin maupun turnamen futsal skala kecil. Lokasi strategis dan mudah dijangkau dari berbagai arah.");
+        values.put("gambar", "lapangan_futsal");
+        db.insert("lapangan", null, values);
+
+        // Data lapangan 2
+        values.clear();
+        values.put("nama_lapangan", "Lapangan Basket");
+        values.put("lokasi", "Jl. Raya Surabaya No.2 Blok B");
+        values.put("harga", 120000);
+        values.put("deskripsi", "Lapangan basket outdoor dengan permukaan yang dilapisi cat anti-selip, dirancang untuk mengurangi risiko cedera pemain. Lapangan ini memiliki dua ring basket yang kokoh dan memenuhi standar nasional. Fasilitas pendukung meliputi tribun penonton, area duduk untuk istirahat, serta mesin penjual minuman otomatis. Pencahayaan lapangan memadai untuk permainan hingga malam hari, menjadikannya pilihan ideal bagi penggemar basket.");
+        values.put("gambar", "lapangan_basket");
+        db.insert("lapangan", null, values);
+
+        // Data lapangan 3
+        values.clear();
+        values.put("nama_lapangan", "Lapangan Badminton");
+        values.put("lokasi", "Jl. Raya Bandung No.3 Kompleks C");
+        values.put("harga", 90000);
+        values.put("deskripsi", "Lapangan badminton indoor dengan lantai kayu yang dirancang khusus untuk meningkatkan kenyamanan pemain serta mengurangi tekanan pada sendi. Terdapat lima lapangan dalam satu ruangan besar dengan pencahayaan yang merata. Fasilitas meliputi ruang tunggu, area loker, dan kamar mandi dengan air panas. Cocok untuk latihan rutin maupun pertandingan persahabatan.");
+        values.put("gambar", "lapangan_badminton");
+        db.insert("lapangan", null, values);
+
+        // Data lapangan 4
+        values.clear();
+        values.put("nama_lapangan", "Lapangan Tenis");
+        values.put("lokasi", "Jl. Raya Jogja No.4");
+        values.put("harga", 150000);
+        values.put("deskripsi", "Lapangan tenis dengan permukaan keras berkualitas tinggi yang sesuai dengan standar internasional. Lapangan ini memiliki garis yang jelas dan jaring yang terawat dengan baik. Lokasi strategis dengan pemandangan sekitar yang hijau, cocok untuk latihan profesional maupun turnamen kecil. Fasilitas tambahan mencakup ruang ganti, area parkir luas, dan taman kecil di sekitar lapangan.");
+        values.put("gambar", "lapangan_tenis");
+        db.insert("lapangan", null, values);
+
+        // Data lapangan 5
+        values.clear();
+        values.put("nama_lapangan", "Lapangan Voli");
+        values.put("lokasi", "Jl. Raya Semarang No.5");
+        values.put("harga", 80000);
+        values.put("deskripsi", "Lapangan voli dengan pasir pantai berkualitas tinggi yang dirancang khusus untuk memberikan pengalaman bermain voli pantai. Lapangan ini dilengkapi dengan garis pembatas yang mudah terlihat serta net voli yang memenuhi standar turnamen. Area sekitar dilengkapi dengan tempat duduk penonton dan pohon-pohon rindang yang memberikan suasana sejuk. Cocok untuk bermain rekreasional maupun latihan intensif.");
+        values.put("gambar", "lapangan_voli");
+        db.insert("lapangan", null, values);
+
+        // Data lapangan 6
+        values.clear();
+        values.put("nama_lapangan", "Lapangan Sepak Bola");
+        values.put("lokasi", "Jl. Raya Solo No.6");
+        values.put("harga", 200000);
+        values.put("deskripsi", "Lapangan sepak bola standar internasional dengan rumput alami yang terawat dengan baik. Lapangan ini memiliki ukuran resmi untuk pertandingan dan dilengkapi dengan dua gawang profesional. Fasilitas tambahan meliputi tribun penonton, ruang ganti, serta kamar mandi dengan air bersih dan air panas. Lapangan ini sering digunakan untuk turnamen antar klub.");
+        values.put("gambar", "lapangan_sepakbola");
+        db.insert("lapangan", null, values);
+
+        // Data lapangan 7
+        values.clear();
+        values.put("nama_lapangan", "Lapangan Mini Soccer");
+        values.put("lokasi", "Jl. Raya Makassar No.7");
+        values.put("harga", 150000);
+        values.put("deskripsi", "Lapangan mini soccer dengan rumput sintetis berkualitas tinggi yang dirancang untuk pertandingan skala kecil dengan maksimal 7 pemain per tim. Lapangan ini dilengkapi dengan pencahayaan malam hari yang memadai serta area duduk di sekitarnya. Fasilitas tambahan meliputi ruang ganti, area parkir, dan kantin kecil yang menyediakan makanan dan minuman.");
+        values.put("gambar", "lapangan_minisoccer");
+        db.insert("lapangan", null, values);
+
+        // Data lapangan 8
+        values.clear();
+        values.put("nama_lapangan", "Lapangan Golf Mini");
+        values.put("lokasi", "Jl. Raya Bali No.8");
+        values.put("harga", 180000);
+        values.put("deskripsi", "Lapangan golf mini dengan 18 hole yang dirancang untuk memberikan pengalaman bermain golf santai bagi semua kalangan. Lapangan ini memiliki berbagai rintangan menarik dan cocok untuk keluarga maupun acara perusahaan. Fasilitas pendukung mencakup area parkir luas, kafe, dan toko perlengkapan golf. Lokasi sangat strategis dan memberikan suasana yang asri.");
+        values.put("gambar", "lapangan_golfmini");
+        db.insert("lapangan", null, values);
+
         db.close();
-        return result != -1;
+        return true;  // Mengembalikan true jika semua operasi berhasil
     }
 }

@@ -1,14 +1,17 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:layout_marginStart="5dp"
+    android:layout_marginTop="2dp"
+    android:layout_marginEnd="5dp"
+    android:layout_marginBottom="2dp"
     android:orientation="vertical">
 
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="8dp"
-        android:background="@drawable/card_view" <!-- gunakan drawable dengan sudut melengkung -->
-    android:cardElevation="4dp"> <!-- tetap gunakan elevation jika ingin efek bayangan -->
+        android:background="@drawable/card_view"
+        android:layout_margin="8dp">
 
     <LinearLayout
         android:layout_width="match_parent"

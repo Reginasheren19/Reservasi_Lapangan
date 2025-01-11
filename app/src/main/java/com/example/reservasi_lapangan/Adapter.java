@@ -1,37 +1,33 @@
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.TextView;
+import androidx.recyclerview.widget.RecyclerView;
+import java.util.List;
+
 public class LapanganAdapter extends RecyclerView.Adapter<LapanganAdapter.LapanganViewHolder> {
 
-    private List<lapangan> lapanganList;
-    private Context context;
+    private List<Lapangan> lapanganList;
 
-    public LapanganAdapter(Context context) {
-        DBHelper dbHelper = new DBHelper(context);
-        this.lapanganList = dbHelper.getAllLapangan();
-        this.context = context;
-    }
-
-    @NonNull
-    @Override
-    public LapanganViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.activity_list, parent, false);
-        return new LapanganViewHolder(view);
+    // Constructor
+    public LapanganAdapter(List<Lapangan> lapanganList) {
+        this.lapanganList = lapanganList;
     }
 
     @Override
-    public void onBindViewHolder(@NonNull LapanganViewHolder holder, int position) {
-        Lapangan currentLapangan = lapanganList.get(position);
-        holder.nama.setText(currentLapangan.getNama());
-        holder.lokasi.setText(currentLapangan.getLokasi());
-        holder.gambar.setImageResource(currentLapangan.getImageResource());
-        holder.rating.setText(String.valueOf(currentLapangan.getRating()));
+    public LapanganViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        View itemView = LayoutInflater.from(parent.getContext())
+                .inflate(R.layout.item_lapangan, parent, false);
+        return new LapanganViewHolder(itemView);
+    }
 
-        holder.cardView.setOnClickListener(v -> {
-            Intent intent = new Intent(context, DetailsActivity.class);
-            intent.putExtra("placename", currentLapangan.getNama());
-            intent.putExtra("placelocation", currentLapangan.getLokasi());
-            intent.putExtra("imagedetails", currentLapangan.getImageResource());
-            intent.putExtra("placedetails", "Detail informasi lapangan...");
-            context.startActivity(intent);
-        });
+    @Override
+    public void onBindViewHolder(LapanganViewHolder holder, int position) {
+        Lapangan lapangan = lapanganList.get(position);
+        holder.namaLapangan.setText(lapangan.getNamaLapangan());
+        holder.lokasi.setText(lapangan.getLokasi());
+        holder.harga.setText("Rp " + lapangan.getHarga());
+        // Set gambar atau deskripsi sesuai kebutuhan
     }
 
     @Override
@@ -39,18 +35,14 @@ public class LapanganAdapter extends RecyclerView.Adapter<LapanganAdapter.Lapang
         return lapanganList.size();
     }
 
-    public static class LapanganViewHolder extends RecyclerView.ViewHolder {
-        TextView nama, lokasi, rating;
-        ImageView gambar;
-        CardView cardView;
+    public class LapanganViewHolder extends RecyclerView.ViewHolder {
+        public TextView namaLapangan, lokasi, harga;
 
-        public LapanganViewHolder(@NonNull View itemView) {
-            super(itemView);
-            nama = itemView.findViewById(R.id.placename);
-            lokasi = itemView.findViewById(R.id.placelocation);
-            gambar = itemView.findViewById(R.id.imagedetails);
-            rating = itemView.findViewById(R.id.placerating);
-            cardView = itemView.findViewById(R.id.cardView);
+        public LapanganViewHolder(View view) {
+            super(view);
+            namaLapangan = view.findViewById(R.id.namaLapangan);
+            lokasi = view.findViewById(R.id.lokasi);
+            harga = view.findViewById(R.id.harga);
         }
     }
 }

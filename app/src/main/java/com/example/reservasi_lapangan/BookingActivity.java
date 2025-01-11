@@ -104,7 +104,7 @@ public class BookingActivity extends AppCompatActivity {
             tvNamaLapangan.setText(namaLapangan);
         }
         if (harga != null) {
-            tvHarga.setText("Rp " + harga);
+            tvHarga.setText(harga);
         }
         if (lokasi != null) {
             tvLokasi.setText(lokasi);

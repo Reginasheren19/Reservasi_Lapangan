@@ -37,9 +37,9 @@
         app:queryHint="Mau Olahraga Apa Hari Ini?" />
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recyclerView"
+        android:id="@+id/recyclerViewLapangan"
         android:layout_width="match_parent"
-        android:layout_height="530dp"
+        android:layout_height="match_parent"
         android:layout_below="@id/searchView"
         android:layout_marginTop="5dp"
         tools:listitem="@layout/activity_list" />

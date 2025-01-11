@@ -1,26 +1,40 @@
 package com.example.reservasi_lapangan;
 
-import android.database.Cursor;
+import android.content.Intent;
 import android.os.Bundle;
-import android.widget.Toast;
+
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.reservasi_lapangan.DatabaseHelper;
+import com.example.reservasi_lapangan.Lapangan;
+import com.example.reservasi_lapangan.LapanganAdapter;
+import com.example.reservasi_lapangan.R;
+
+import java.util.List;
+
 public class MainActivity extends AppCompatActivity {
+    private RecyclerView recyclerView;
+    private LapanganAdapter lapanganAdapter;
+    private List<Lapangan> lapanganList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        // Membuat objek DatabaseHelper
+        // Initialize RecyclerView
+        recyclerView = findViewById(R.id.recyclerViewLapangan);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+
+        // Fetch data from the database
         DatabaseHelper dbHelper = new DatabaseHelper(this);
+        lapanganList = dbHelper.getAllLapangan(); // Assuming this method returns a List<Lapangan>
 
-        // Menambahkan data lapangan ke database (ini contoh, Anda bisa menghapusnya setelah data sudah ada di DB)
-        // dbHelper.addField("Lapangan Sepak Bola", "Sepak Bola", 100000, "Lapangan sepak bola standar");
-        // dbHelper.addField("Lapangan Basket", "Basket", 80000, "Lapangan basket dengan papan ring");
-
-
+        // Set up the adapter
+        lapanganAdapter = new LapanganAdapter(this, lapanganList);
+        recyclerView.setAdapter(lapanganAdapter);
     }
 }

@@ -1,9 +1,14 @@
 package com.example.reservasi_lapangan;
 
-import android.content.Context;
 import android.content.ContentValues;
+import android.content.Context;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.util.Log;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class DatabaseHelper extends SQLiteOpenHelper {
 
@@ -25,16 +30,18 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             "deskripsi TEXT, " +
             "gambar TEXT);"; // Menyimpan path atau URI gambar
 
-
     public DatabaseHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
     }
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        // Membuat tabel users
+        // Membuat tabel users dan lapangan
         db.execSQL(CREATE_TABLE_USERS);
         db.execSQL(CREATE_TABLE_LAPANGAN);
+
+        // Menambahkan data awal ke tabel lapangan
+        insertInitialLapanganData(db);
     }
 
     @Override
@@ -47,20 +54,18 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     // Metode untuk menyisipkan user ke dalam tabel users
     public boolean insertUser(String username, String password) {
-        SQLiteDatabase db = this.getWritableDatabase();  // Mendapatkan akses tulis ke database
-        ContentValues values = new ContentValues();  // Untuk menyimpan data yang akan disisipkan
-        values.put("username", username);  // Menambahkan username ke dalam ContentValues
-        values.put("password", password);  // Menambahkan password ke dalam ContentValues
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put("username", username);
+        values.put("password", password);
 
-        // Menyisipkan baris baru ke tabel users dan menyimpan ID hasil penyisipan
         long result = db.insert("users", null, values);
-        db.close();  // Menutup database setelah operasi selesai
-        return result != -1;  // Mengembalikan true jika berhasil (ID lebih besar dari -1)
+        db.close();
+        return result != -1;
     }
 
-    // Metode untuk menyisipkan data lapangan dengan gambar
-    public boolean insertLapangan(String namaLapangan, String lokasi, double harga, String deskripsi, String gambar) {
-        SQLiteDatabase db = this.getWritableDatabase();
+    // Menambahkan data awal ke tabel lapangan
+    private void insertInitialLapanganData(SQLiteDatabase db) {
         ContentValues values = new ContentValues();
 
         // Data lapangan 1
@@ -118,15 +123,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
         // Data lapangan 7
         values.clear();
-        values.put("nama_lapangan", "Lapangan Mini Soccer");
-        values.put("lokasi", "Jl. Raya Makassar No.7");
-        values.put("harga", 150000);
-        values.put("deskripsi", "Lapangan mini soccer dengan rumput sintetis berkualitas tinggi yang dirancang untuk pertandingan skala kecil dengan maksimal 7 pemain per tim. Lapangan ini dilengkapi dengan pencahayaan malam hari yang memadai serta area duduk di sekitarnya. Fasilitas tambahan meliputi ruang ganti, area parkir, dan kantin kecil yang menyediakan makanan dan minuman.");
-        values.put("gambar", "lapangan_minisoccer");
-        db.insert("lapangan", null, values);
-
-        // Data lapangan 8
-        values.clear();
         values.put("nama_lapangan", "Lapangan Golf Mini");
         values.put("lokasi", "Jl. Raya Bali No.8");
         values.put("harga", 180000);
@@ -134,7 +130,33 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         values.put("gambar", "lapangan_golfmini");
         db.insert("lapangan", null, values);
 
+        // Tambahkan data lainnya sesuai kebutuhan...
+    }
+
+    // Metode untuk mengambil semua data lapangan
+    public List<Lapangan> getAllLapangan() {
+        List<Lapangan> lapanganList = new ArrayList<>();
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        String query = "SELECT * FROM lapangan";
+        Cursor cursor = db.rawQuery(query, null);
+
+        if (cursor.moveToFirst()) {
+            do {
+                Lapangan lapangan = new Lapangan(
+                        cursor.getInt(cursor.getColumnIndexOrThrow("id_lapangan")),
+                        cursor.getString(cursor.getColumnIndexOrThrow("nama_lapangan")),
+                        cursor.getString(cursor.getColumnIndexOrThrow("lokasi")),
+                        cursor.getDouble(cursor.getColumnIndexOrThrow("harga")),
+                        cursor.getString(cursor.getColumnIndexOrThrow("deskripsi")),
+                        cursor.getString(cursor.getColumnIndexOrThrow("gambar"))
+                );
+                lapanganList.add(lapangan);
+            } while (cursor.moveToNext());
+        }
+
+        cursor.close();
         db.close();
-        return true;  // Mengembalikan true jika semua operasi berhasil
+        return lapanganList;
     }
 }

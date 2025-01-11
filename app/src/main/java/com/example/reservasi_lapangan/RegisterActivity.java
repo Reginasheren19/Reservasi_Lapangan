@@ -73,6 +73,10 @@ public class RegisterActivity extends AppCompatActivity {
         values.put("password", password);
 
         long result = db.insert("users", null, values);
-        return result != -1; // Return true jika insert berhasil
+        if (result == -1) {
+            Toast.makeText(this, "Registration failed", Toast.LENGTH_SHORT).show();
+            return false; // Return false jika insert gagal
+        }
+        return true; // Return true jika insert berhasil
     }
 }

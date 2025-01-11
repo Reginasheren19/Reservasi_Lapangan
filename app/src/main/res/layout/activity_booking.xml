@@ -23,7 +23,7 @@
         <EditText
             android:id="@+id/inputNama"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="48dp"
             android:hint="Masukkan Nama"
             android:inputType="textPersonName"
             android:layout_marginBottom="16dp" />
@@ -39,7 +39,7 @@
         <EditText
             android:id="@+id/inputTelepon"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="48dp"
             android:hint="Masukkan Nomor Telepon"
             android:inputType="phone"
             android:layout_marginBottom="16dp" />
@@ -55,7 +55,7 @@
         <EditText
             android:id="@+id/InputDate"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="48dp"
             android:hint="dd/MM/yyyy"
             android:layout_marginBottom="16dp" />
 

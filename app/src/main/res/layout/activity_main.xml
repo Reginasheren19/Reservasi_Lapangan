@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.coordinatorlayout.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -87,7 +88,6 @@
                             android:layout_height="66dp"
                             android:layout_gravity="center_vertical|end"
                             android:padding="10dp"
-                            android:src="@drawable/ic_plane"
                             app:tint="@color/white" />
 
                     </LinearLayout>
@@ -98,22 +98,5 @@
         </androidx.core.widget.NestedScrollView>
 
     </LinearLayout>
-
-    <androidx.appcompat.widget.SearchView
-        android:id="@+id/searchView"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="4dp"
-        android:background="@drawable/search_view"
-        android:focusable="true"
-        app:iconifiedByDefault="false"
-        app:layout_anchor="@+id/imageView"
-        app:layout_anchorGravity="top|center"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:queryHint="Mau Olahraga Apa Hari Ini?" />
-
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

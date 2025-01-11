@@ -1,50 +1,30 @@
 package com.example.reservasi_lapangan;
 
 import android.content.Context;
+import android.content.ContentValues;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
 public class DatabaseHelper extends SQLiteOpenHelper {
 
-    // Nama Database dan Versi
-    private static final String DATABASE_NAME = "reservasi_lapangan.db";
+    static final String DATABASE_NAME = "reservasi_lapangan.db";
     private static final int DATABASE_VERSION = 1;
 
-    // SQL untuk Membuat Tabel Users
+    // SQL untuk membuat tabel users
     private static final String CREATE_TABLE_USERS = "CREATE TABLE users (" +
             "id_user INTEGER PRIMARY KEY AUTOINCREMENT, " +
-            "username TEXT NOT NULL, " +
-            "email TEXT UNIQUE NOT NULL, " +
+            "username TEXT NOT NULL UNIQUE, " +
             "password TEXT NOT NULL);";
 
-    // SQL untuk Membuat Tabel Fields
+    // SQL untuk membuat tabel lapangan
     private static final String CREATE_TABLE_LAPANGAN = "CREATE TABLE lapangan (" +
             "id_lapangan INTEGER PRIMARY KEY AUTOINCREMENT, " +
             "nama_lapangan TEXT NOT NULL, " +
             "lokasi TEXT NOT NULL, " +
             "harga REAL NOT NULL, " +
-            "deskripsi TEXT);";
+            "deskripsi TEXT, " +
+            "gambar TEXT);"; // Menyimpan path atau URI gambar
 
-    // SQL untuk Membuat Tabel Bookings
-    private static final String CREATE_TABLE_BOOKINGS = "CREATE TABLE bookings (" +
-            "id_booking INTEGER PRIMARY KEY AUTOINCREMENT, " +
-            "id_user INTEGER, " +
-            "id_lapangan INTEGER, " +
-            "tanggal_booking TEXT NOT NULL, " +
-            "start_time TEXT NOT NULL, " +
-            "end_time TEXT NOT NULL, " +
-            "total_harga REAL NOT NULL, " +
-            "status TEXT DEFAULT 'Pending', " +
-            "FOREIGN KEY (user_id) REFERENCES users(user_id), " +
-            "FOREIGN KEY (field_id) REFERENCES fields(field_id));";
-
-    // SQL untuk Membuat Tabel Payments
-    private static final String CREATE_TABLE_PAYMENTS = "CREATE TABLE payments (" +
-            "id_bayar INTEGER PRIMARY KEY AUTOINCREMENT, " +
-            "id_booking INTEGER, " +
-            "total_harga REAL NOT NULL, " +
-            "virtual_account TEXT NOT NULL, " +
-            "FOREIGN KEY (id_booking) REFERENCES bookings(id_booking));";
 
     public DatabaseHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
@@ -52,20 +32,44 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        // Membuat semua tabel
+        // Membuat tabel users
         db.execSQL(CREATE_TABLE_USERS);
         db.execSQL(CREATE_TABLE_LAPANGAN);
-        db.execSQL(CREATE_TABLE_BOOKINGS);
-        db.execSQL(CREATE_TABLE_PAYMENTS);
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-        // Drop tabel lama jika ada
+        // Menghapus tabel lama jika ada dan membuat ulang
         db.execSQL("DROP TABLE IF EXISTS users");
         db.execSQL("DROP TABLE IF EXISTS lapangan");
-        db.execSQL("DROP TABLE IF EXISTS bookings");
-        db.execSQL("DROP TABLE IF EXISTS payments");
-        onCreate(db); // Buat ulang tabel
+        onCreate(db);
+    }
+
+    // Metode untuk menyisipkan user ke dalam tabel users
+    public boolean insertUser(String username, String password) {
+        SQLiteDatabase db = this.getWritableDatabase();  // Mendapatkan akses tulis ke database
+        ContentValues values = new ContentValues();  // Untuk menyimpan data yang akan disisipkan
+        values.put("username", username);  // Menambahkan username ke dalam ContentValues
+        values.put("password", password);  // Menambahkan password ke dalam ContentValues
+
+        // Menyisipkan baris baru ke tabel users dan menyimpan ID hasil penyisipan
+        long result = db.insert("users", null, values);
+        db.close();  // Menutup database setelah operasi selesai
+        return result != -1;  // Mengembalikan true jika berhasil (ID lebih besar dari -1)
+    }
+
+    // Metode untuk menyisipkan data lapangan dengan gambar
+    public boolean insertLapangan(String namaLapangan, String lokasi, double harga, String deskripsi, String gambar) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put("nama_lapangan", namaLapangan);
+        values.put("lokasi", lokasi);
+        values.put("harga", harga);
+        values.put("deskripsi", deskripsi);
+        values.put("gambar", gambar); // Menambahkan path gambar
+
+        long result = db.insert("lapangan", null, values);
+        db.close();
+        return result != -1;
     }
 }

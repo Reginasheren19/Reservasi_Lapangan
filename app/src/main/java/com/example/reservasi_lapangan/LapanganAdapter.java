@@ -20,6 +20,7 @@ public class LapanganAdapter extends RecyclerView.Adapter<LapanganAdapter.Lapang
 
     private Context context;
     private List<Lapangan> lapanganList;
+    private OnItemClickListener onItemClickListener;
 
     public LapanganAdapter(Context context, List<Lapangan> lapanganList) {
         this.context = context;
@@ -41,26 +42,32 @@ public class LapanganAdapter extends RecyclerView.Adapter<LapanganAdapter.Lapang
         holder.lokasiLapangan.setText(lapangan.getLokasi());
         holder.hargaLapangan.setText(lapangan.getHarga());
 
-
         int imageResId = context.getResources().getIdentifier(
                 lapangan.getGambar(), "drawable", context.getPackageName()
         );
         holder.gambarLapangan.setImageResource(imageResId);
 
+        // Menambahkan listener pada item klik
         holder.itemView.setOnClickListener(v -> {
-            Intent intent = new Intent(context, DetailsActivity.class);
-            intent.putExtra("namaLapangan", lapangan.getNamaLapangan());
-            intent.putExtra("harga", lapangan.getHarga());
-            intent.putExtra("lokasi", lapangan.getLokasi());
-            intent.putExtra("deskripsi", lapangan.getDeskripsi());
-            intent.putExtra("gambar", lapangan.getGambar());
-            context.startActivity(intent);
+            if (onItemClickListener != null) {
+                onItemClickListener.onItemClick(lapangan); // Panggil interface listener
+            }
         });
     }
 
     @Override
     public int getItemCount() {
         return lapanganList.size();
+    }
+
+    // Tambahkan setter untuk OnItemClickListener
+    public void setOnItemClickListener(OnItemClickListener listener) {
+        this.onItemClickListener = listener;
+    }
+
+    // Interface untuk menangani klik item
+    public interface OnItemClickListener {
+        void onItemClick(Lapangan lapangan);
     }
 
     public static class LapanganViewHolder extends RecyclerView.ViewHolder {
@@ -76,4 +83,3 @@ public class LapanganAdapter extends RecyclerView.Adapter<LapanganAdapter.Lapang
         }
     }
 }
-

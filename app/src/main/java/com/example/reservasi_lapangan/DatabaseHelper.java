@@ -38,7 +38,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             "tanggal_booking TEXT NOT NULL, " +
             "waktu_mulai TEXT, " +  // Waktu mulai bisa diisi banyak, sebaiknya disimpan sebagai string
             "total_harga REAL NOT NULL, " +
-            "status TEXT NOT NULL, " +
             "FOREIGN KEY(id_lapangan) REFERENCES lapangan(id_lapangan));";
 
 
@@ -78,23 +77,24 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return result != -1;
     }
 
-    // Metode untuk menyisipkan transaksi booking ke dalam tabel transaksi_booking
-    public boolean insertTransaksiBooking(String username, int idLapangan, String tanggalBooking, String waktuMulai, String waktuSelesai, double totalHarga, String status) {
+    public boolean insertTransaksiBooking(String nama, String telepon, int idLapangan, String tanggalBooking, String waktuMulai, double totalHarga, String status) {
         SQLiteDatabase db = this.getWritableDatabase();
 
         ContentValues values = new ContentValues();
-        values.put("username", username);  // Menyimpan username langsung
-        values.put("id_lapangan", idLapangan);
+        values.put("id_lapangan", idLapangan);  // id lapangan yang dipilih
+        values.put("nama", nama);
+        values.put("nomor_telepon", telepon);
         values.put("tanggal_booking", tanggalBooking);
-        values.put("waktu_mulai", waktuMulai);
-        values.put("waktu_selesai", waktuSelesai);
+        values.put("waktu_mulai", waktuMulai);  // Waktu mulai yang dipilih
         values.put("total_harga", totalHarga);
-        values.put("status", status);
 
+        // Menyisipkan data ke dalam tabel transaksi_booking
         long result = db.insert("transaksi_booking", null, values);
+
         db.close();
-        return result != -1;
+        return result != -1; // Jika insert berhasil, return true
     }
+
 
     // Menambahkan data awal ke tabel lapangan
     private void insertInitialLapanganData(SQLiteDatabase db) {

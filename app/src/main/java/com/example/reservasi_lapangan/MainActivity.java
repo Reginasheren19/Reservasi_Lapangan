@@ -2,8 +2,8 @@ package com.example.reservasi_lapangan;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.widget.Toast;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -36,5 +36,18 @@ public class MainActivity extends AppCompatActivity {
         // Set up the adapter
         lapanganAdapter = new LapanganAdapter(this, lapanganList);
         recyclerView.setAdapter(lapanganAdapter);
+
+        // Set item click listener
+        lapanganAdapter.setOnItemClickListener(lapangan -> {
+            // Create intent to navigate to DetailsActivity
+            Intent intent = new Intent(MainActivity.this, DetailsActivity.class);
+            intent.putExtra("idLapangan", lapangan.getId());  // Pastikan lapangan.getId() mengembalikan ID yang valid
+            intent.putExtra("namaLapangan", lapangan.getNamaLapangan());
+            intent.putExtra("lokasi", lapangan.getLokasi());
+            intent.putExtra("harga", lapangan.getHarga());
+            intent.putExtra("deskripsi", lapangan.getDeskripsi());
+            intent.putExtra("gambar", lapangan.getGambar());
+            startActivity(intent);
+        });
     }
 }

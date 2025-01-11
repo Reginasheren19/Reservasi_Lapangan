@@ -2,9 +2,8 @@ package com.example.reservasi_lapangan;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.GridView;
@@ -22,11 +21,11 @@ public class BookingActivity extends AppCompatActivity {
     private EditText inputNama, inputTelepon, inputDate;
     private DatabaseHelper databaseHelper;
     private ArrayList<String> selectedTimes = new ArrayList<>(); // List untuk menyimpan waktu yang dipilih
-    private String[] waktuBooking = {
+    private final String[] waktuMulai = {
             "08:00", "09:00", "10:00", "11:00", "12:00",
-            "13:00", "14:00", "15:00", "16:00", "17:00"
+            "13:00", "14:00", "15:00", "16:00", "17:00",
+            "18:00", "19:00", "20:00", "21:00"
     };
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,97 +40,95 @@ public class BookingActivity extends AppCompatActivity {
         inputTelepon = findViewById(R.id.inputTelepon);
         inputDate = findViewById(R.id.InputDate);
 
-        // Inisialisasi GridView
         GridView gridView = findViewById(R.id.gridView);
-
-        // Inisialisasi GridView
-        GridView gridView = findViewById(R.id.gridView);
-
-        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, R.layout.grid_item, R.id.btnGridItem, waktuBooking);
-        gridView.setAdapter(adapter);
-
-        gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                String selectedTime = waktuBooking[position];
-
-                // Jika waktu sudah dipilih, hapus dari daftar; jika belum, tambahkan ke daftar
-                if (selectedTimes.contains(selectedTime)) {
-                    selectedTimes.remove(selectedTime);
-                    Button button = view.findViewById(R.id.btnGridItem);
-                    button.setBackgroundColor(getResources().getColor(R.color.white)); // Reset background color
-                    button.setTextColor(getResources().getColor(R.color.black)); // Reset text color
-                    Toast.makeText(BookingActivity.this, "Waktu dibatalkan: " + selectedTime, Toast.LENGTH_SHORT).show();
-                } else {
-                    selectedTimes.add(selectedTime);
-                    Button button = view.findViewById(R.id.btnGridItem);
-                    button.setBackgroundColor(getResources().getColor(R.color.teal_700)); // Highlight selected time
-                    button.setTextColor(getResources().getColor(R.color.white));
-                    Toast.makeText(BookingActivity.this, "Waktu terpilih: " + selectedTime, Toast.LENGTH_SHORT).show();
-                }
-            }
-        });
-
-        // Inisialisasi tombol back
+        Button btnBayarBooking = findViewById(R.id.btnBayarBooking);
         ImageView backButtonbook = findViewById(R.id.backButtonbook);
-
-        // Listener untuk tombol back
-        backButtonbook.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                finish(); // Mengakhiri activity dan kembali ke sebelumnya
-            }
-        });
-
 
         // Ambil data dari Intent
         Intent intent = getIntent();
         String namaLapangan = intent.getStringExtra("namaLapangan");
         String harga = intent.getStringExtra("harga");
         String lokasi = intent.getStringExtra("lokasi");
+        int idLapangan = intent.getIntExtra("idLapangan", -1);
+
+        // Validasi ID lapangan
+        if (idLapangan == -1) {
+            Toast.makeText(this, "ID lapangan tidak valid.", Toast.LENGTH_SHORT).show();
+            finish();
+            return;
+        }
 
         // Tampilkan data di TextView
-        if (namaLapangan != null) {
-            tvNamaLapangan.setText(namaLapangan);
-        }
-        if (harga != null) {
-            tvHarga.setText(harga);
-        }
-        if (lokasi != null) {
-            tvLokasi.setText(lokasi);
-        }
+        tvNamaLapangan.setText(namaLapangan != null ? namaLapangan : "N/A");
+        tvHarga.setText(harga != null ? harga : "N/A");
+        tvLokasi.setText(lokasi != null ? lokasi : "N/A");
 
         // Inisialisasi DatabaseHelper
         databaseHelper = new DatabaseHelper(this);
 
-        // Button bayar booking
-        Button btnBayarBooking = findViewById(R.id.btnBayarBooking);
-        btnBayarBooking.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                // Mendapatkan data input dari EditText
-                String nama = inputNama.getText().toString().trim();
-                String telepon = inputTelepon.getText().toString().trim();
-                String tanggalBooking = inputDate.getText().toString().trim();
-                String username = "user_example"; // Sesuaikan dengan nama user yang login
+        // Setup GridView
+        TimeAdapter adapter = new TimeAdapter(this, waktuMulai, selectedTimes);
+        gridView.setAdapter(adapter);
 
-                // Ambil ID lapangan dan harga dari Intent
-                int idLapangan = intent.getIntExtra("idLapangan", -1);
+        gridView.setOnItemClickListener((parent, view, position, id) -> {
+            String selectedTime = waktuMulai[position];
+            if (selectedTimes.contains(selectedTime)) {
+                selectedTimes.remove(selectedTime);
+                Button button = view.findViewById(R.id.btnGridItem);
+                button.setBackgroundColor(getResources().getColor(R.color.white));
+                button.setTextColor(getResources().getColor(R.color.black));
+                Toast.makeText(this, "Waktu dibatalkan: " + selectedTime, Toast.LENGTH_SHORT).show();
+            } else {
+                selectedTimes.add(selectedTime);
+                Button button = view.findViewById(R.id.btnGridItem);
+                button.setBackgroundColor(getResources().getColor(R.color.teal_700));
+                button.setTextColor(getResources().getColor(R.color.white));
+                Toast.makeText(this, "Waktu terpilih: " + selectedTime, Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        // Listener tombol kembali
+        backButtonbook.setOnClickListener(view -> finish());
+
+        // Listener tombol bayar booking
+        btnBayarBooking.setOnClickListener(view -> {
+            String nama = inputNama.getText().toString().trim();
+            String telepon = inputTelepon.getText().toString().trim();
+            String tanggalBooking = inputDate.getText().toString().trim();
+
+            // Validasi input
+            if (nama.isEmpty() || telepon.isEmpty() || tanggalBooking.isEmpty() || selectedTimes.isEmpty()) {
+                Toast.makeText(this, "Mohon lengkapi semua data booking.", Toast.LENGTH_SHORT).show();
+                return;
+            }
+
+            try {
                 double totalHarga = Double.parseDouble(harga);
 
-                // Simpan transaksi booking ke database
-                boolean isSuccess = databaseHelper.insertTransaksiBooking(username, idLapangan, tanggalBooking, "09:00", "11:00", totalHarga, "Booked");
+                // Simpan data booking ke database
+                boolean isInserted = databaseHelper.insertTransaksiBooking(
+                        nama, telepon, idLapangan, tanggalBooking, selectedTimes.toString(), totalHarga, "Pending"
+                );
 
-                if (isSuccess) {
-                    Toast.makeText(BookingActivity.this, "Transaksi berhasil, lanjut ke pembayaran", Toast.LENGTH_SHORT).show();
+                if (isInserted) {
+                    Toast.makeText(this, "Booking berhasil! Menuju halaman pembayaran.", Toast.LENGTH_SHORT).show();
 
-                    // Lanjut ke PaymentActivity
+                    // Pindah ke PaymentActivity
                     Intent paymentIntent = new Intent(BookingActivity.this, PaymentActivity.class);
+                    paymentIntent.putExtra("nama", nama);
+                    paymentIntent.putExtra("telepon", telepon);
+                    paymentIntent.putExtra("tanggalBooking", tanggalBooking);
+                    paymentIntent.putExtra("selectedTimes", selectedTimes);
                     paymentIntent.putExtra("totalHarga", totalHarga);
+                    paymentIntent.putExtra("idLapangan", idLapangan);
                     startActivity(paymentIntent);
+                    finish();
                 } else {
-                    Toast.makeText(BookingActivity.this, "Gagal melakukan transaksi", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(this, "Gagal menyimpan data booking. Coba lagi.", Toast.LENGTH_SHORT).show();
                 }
+            } catch (NumberFormatException e) {
+                Toast.makeText(this, "Format harga tidak valid.", Toast.LENGTH_SHORT).show();
+                Log.e("BookingActivity", "Error parsing harga: " + e.getMessage());
             }
         });
     }

@@ -14,12 +14,14 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import java.util.ArrayList;
+
 public class BookingActivity extends AppCompatActivity {
 
     private TextView tvNamaLapangan, tvHarga, tvLokasi;
     private EditText inputNama, inputTelepon, inputDate;
     private DatabaseHelper databaseHelper;
-    // Data waktu untuk GridView (Deklarasi di tingkat kelas)
+    private ArrayList<String> selectedTimes = new ArrayList<>(); // List untuk menyimpan waktu yang dipilih
     private String[] waktuBooking = {
             "08:00", "09:00", "10:00", "11:00", "12:00",
             "13:00", "14:00", "15:00", "16:00", "17:00"
@@ -38,48 +40,37 @@ public class BookingActivity extends AppCompatActivity {
         inputNama = findViewById(R.id.inputNama);
         inputTelepon = findViewById(R.id.inputTelepon);
         inputDate = findViewById(R.id.InputDate);
+
         // Inisialisasi GridView
         GridView gridView = findViewById(R.id.gridView);
 
-// Membuat adapter untuk GridView dengan layout custom
-        ArrayAdapter<String> adapter = new ArrayAdapter<>(
-                this,
-                R.layout.grid_item, // Layout custom untuk item GridView
-                R.id.btnGridItem,   // ID tombol di layout
-                waktuBooking
-        );
+        // Inisialisasi GridView
+        GridView gridView = findViewById(R.id.gridView);
 
-
-// Mengatur adapter ke GridView
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, R.layout.grid_item, R.id.btnGridItem, waktuBooking);
         gridView.setAdapter(adapter);
 
-// Menangani klik pada item GridView
         gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                // Mengambil tombol yang diklik
-                Button selectedButton = (Button) view;
+                String selectedTime = waktuBooking[position];
 
-                // Mengubah warna tombol menjadi menyala
-                selectedButton.setBackgroundColor(getResources().getColor(R.color.teal_700));
-                selectedButton.setTextColor(getResources().getColor(R.color.white));
-
-                // Mengubah warna tombol lain menjadi normal
-                for (int i = 0; i < gridView.getChildCount(); i++) {
-                    if (i != position) {
-                        Button otherButton = (Button) gridView.getChildAt(i);
-                        otherButton.setBackgroundColor(getResources().getColor(R.color.white));
-                        otherButton.setTextColor(getResources().getColor(R.color.black));
-                    }
+                // Jika waktu sudah dipilih, hapus dari daftar; jika belum, tambahkan ke daftar
+                if (selectedTimes.contains(selectedTime)) {
+                    selectedTimes.remove(selectedTime);
+                    Button button = view.findViewById(R.id.btnGridItem);
+                    button.setBackgroundColor(getResources().getColor(R.color.white)); // Reset background color
+                    button.setTextColor(getResources().getColor(R.color.black)); // Reset text color
+                    Toast.makeText(BookingActivity.this, "Waktu dibatalkan: " + selectedTime, Toast.LENGTH_SHORT).show();
+                } else {
+                    selectedTimes.add(selectedTime);
+                    Button button = view.findViewById(R.id.btnGridItem);
+                    button.setBackgroundColor(getResources().getColor(R.color.teal_700)); // Highlight selected time
+                    button.setTextColor(getResources().getColor(R.color.white));
+                    Toast.makeText(BookingActivity.this, "Waktu terpilih: " + selectedTime, Toast.LENGTH_SHORT).show();
                 }
-
-                // Menyimpan waktu terpilih
-                String waktuTerpilih = waktuBooking[position];
-                Toast.makeText(BookingActivity.this, "Waktu terpilih: " + waktuTerpilih, Toast.LENGTH_SHORT).show();
             }
         });
-
-
 
         // Inisialisasi tombol back
         ImageView backButtonbook = findViewById(R.id.backButtonbook);

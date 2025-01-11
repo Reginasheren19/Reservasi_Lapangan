@@ -3,8 +3,11 @@ package com.example.reservasi_lapangan;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -16,6 +19,11 @@ public class BookingActivity extends AppCompatActivity {
     private TextView tvNamaLapangan, tvHarga, tvLokasi;
     private EditText inputNama, inputTelepon, inputDate;
     private DatabaseHelper databaseHelper;
+    // Data waktu untuk GridView (Deklarasi di tingkat kelas)
+    private String[] waktuBooking = {
+            "08:00", "09:00", "10:00", "11:00", "12:00",
+            "13:00", "14:00", "15:00", "16:00", "17:00"
+    };
 
 
     @Override
@@ -30,6 +38,48 @@ public class BookingActivity extends AppCompatActivity {
         inputNama = findViewById(R.id.inputNama);
         inputTelepon = findViewById(R.id.inputTelepon);
         inputDate = findViewById(R.id.InputDate);
+        // Inisialisasi GridView
+        GridView gridView = findViewById(R.id.gridView);
+
+// Membuat adapter untuk GridView dengan layout custom
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(
+                this,
+                R.layout.grid_item, // Layout custom untuk item GridView
+                R.id.btnGridItem,   // ID tombol di layout
+                waktuBooking
+        );
+
+
+// Mengatur adapter ke GridView
+        gridView.setAdapter(adapter);
+
+// Menangani klik pada item GridView
+        gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                // Mengambil tombol yang diklik
+                Button selectedButton = (Button) view;
+
+                // Mengubah warna tombol menjadi menyala
+                selectedButton.setBackgroundColor(getResources().getColor(R.color.teal_700));
+                selectedButton.setTextColor(getResources().getColor(R.color.white));
+
+                // Mengubah warna tombol lain menjadi normal
+                for (int i = 0; i < gridView.getChildCount(); i++) {
+                    if (i != position) {
+                        Button otherButton = (Button) gridView.getChildAt(i);
+                        otherButton.setBackgroundColor(getResources().getColor(R.color.white));
+                        otherButton.setTextColor(getResources().getColor(R.color.black));
+                    }
+                }
+
+                // Menyimpan waktu terpilih
+                String waktuTerpilih = waktuBooking[position];
+                Toast.makeText(BookingActivity.this, "Waktu terpilih: " + waktuTerpilih, Toast.LENGTH_SHORT).show();
+            }
+        });
+
+
 
         // Inisialisasi tombol back
         ImageView backButtonbook = findViewById(R.id.backButtonbook);
@@ -54,7 +104,7 @@ public class BookingActivity extends AppCompatActivity {
             tvNamaLapangan.setText(namaLapangan);
         }
         if (harga != null) {
-            tvHarga.setText("Rp " + harga);
+            tvHarga.setText(harga);
         }
         if (lokasi != null) {
             tvLokasi.setText(lokasi);

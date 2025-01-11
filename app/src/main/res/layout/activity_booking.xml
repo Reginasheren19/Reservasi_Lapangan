@@ -76,6 +76,15 @@
                 android:text="Lokasi"
                 android:textSize="16sp" />
 
+            <!-- TextView Lokasi -->
+            <TextView
+                android:id="@+id/tvTotalHarga"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="16dp"
+                android:text="Total Harga"
+                android:textSize="16sp" />
+
             <!-- EditText untuk Nama -->
             <TextView
                 android:layout_width="wrap_content"

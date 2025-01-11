@@ -1,6 +1,8 @@
 package com.example.reservasi_lapangan;
 
 import android.content.Intent;
+import android.icu.text.DecimalFormat;
+import android.icu.text.SimpleDateFormat;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -8,6 +10,9 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+
+import java.util.Calendar;
+import java.util.Locale;
 
 public class PaymentActivity extends AppCompatActivity {
 
@@ -28,25 +33,43 @@ public class PaymentActivity extends AppCompatActivity {
         backToHomeButton = findViewById(R.id.backToHomeButton);
 
         // Ambil data total harga dari Intent
+        int idLapangan = getIntent().getIntExtra("idLapangan", -1); // Default -1 jika tidak ditemukan
         double totalHarga = getIntent().getDoubleExtra("totalHarga", 0);
 
+        // Validasi data yang diterima
+        if (idLapangan == -1) {
+            Toast.makeText(this, "Data lapangan tidak valid!", Toast.LENGTH_SHORT).show();
+            finish(); // Tutup activity jika data tidak valid
+            return;
+        }
+
+        // Format total harga dalam Rupiah
+        DecimalFormat decimalFormat = new DecimalFormat("#,###");
+        String formattedTotalHarga = decimalFormat.format(totalHarga);
+
         // Tampilkan total harga
-        tvTotalHarga.setText("Total Harga: Rp " + totalHarga);
+        tvTotalHarga.setText("Total Harga: Rp " + formattedTotalHarga);
 
-        // Misalnya, virtual account ID yang diberikan
-        String virtualAccount = "1234567890"; // Ganti dengan logika jika perlu
-
-        // Menampilkan Virtual Account
+        // Simulasi Virtual Account ID
+        String virtualAccount = "VA" + idLapangan + "123456";
         virtualAccountTextView.setText(virtualAccount);
         virtualAccountTextView.setVisibility(View.VISIBLE);
 
-        // Menampilkan pesan kadaluarsa
+
+        // Simulasi waktu kadaluarsa Virtual Account (2 jam dari sekarang)
+        Calendar calendar = Calendar.getInstance();
+        calendar.add(Calendar.HOUR, 2);
+        SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy HH:mm", Locale.getDefault());
+        String expirationTime = "Kadaluarsa pada: " + sdf.format(calendar.getTime());
+
+        virtualAccountExpirationTextView.setText(expirationTime);
         virtualAccountExpirationTextView.setVisibility(View.VISIBLE);
 
         // Listener untuk Tombol Kembali ke Halaman Awal
         backToHomeButton.setOnClickListener(v -> {
             // Pindah ke halaman awal atau halaman lain
-            Intent intent = new Intent(PaymentActivity.this, MainActivity.class); // Ganti dengan halaman awal yang sesuai
+            Intent intent = new Intent(PaymentActivity.this, MainActivity.class); // Sesuaikan dengan halaman awal
+            intent.putExtra("idLapangan", idLapangan); // Jika perlu mengirim ulang data idLapangan
             startActivity(intent);
             finish();  // Menutup PaymentActivity
         });

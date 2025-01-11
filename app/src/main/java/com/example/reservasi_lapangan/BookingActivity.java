@@ -13,11 +13,13 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import java.text.NumberFormat;
 import java.util.ArrayList;
+import java.util.Locale;
 
 public class BookingActivity extends AppCompatActivity {
 
-    private TextView tvNamaLapangan, tvHarga, tvLokasi;
+    private TextView tvNamaLapangan, tvHarga, tvLokasi, tvTotalHarga;
     private EditText inputNama, inputTelepon, inputDate;
     private DatabaseHelper databaseHelper;
     private ArrayList<String> selectedTimes = new ArrayList<>(); // List untuk menyimpan waktu yang dipilih
@@ -36,9 +38,11 @@ public class BookingActivity extends AppCompatActivity {
         tvNamaLapangan = findViewById(R.id.tvNamaLapangan);
         tvHarga = findViewById(R.id.tvHarga);
         tvLokasi = findViewById(R.id.tvLokasi);
+        tvTotalHarga = findViewById(R.id.tvTotalHarga);
         inputNama = findViewById(R.id.inputNama);
         inputTelepon = findViewById(R.id.inputTelepon);
         inputDate = findViewById(R.id.InputDate);
+
 
         GridView gridView = findViewById(R.id.gridView);
         Button btnBayarBooking = findViewById(R.id.btnBayarBooking);
@@ -70,22 +74,44 @@ public class BookingActivity extends AppCompatActivity {
         TimeAdapter adapter = new TimeAdapter(this, waktuMulai, selectedTimes);
         gridView.setAdapter(adapter);
 
+        // Listener untuk GridView
         gridView.setOnItemClickListener((parent, view, position, id) -> {
             String selectedTime = waktuMulai[position];
+            double hargaPerJam;
+            try {
+                hargaPerJam = Double.parseDouble(harga);
+            } catch (NumberFormatException e) {
+                Log.e("BookingActivity", "Error parsing harga: " + e.getMessage());
+                Toast.makeText(this, "Terjadi kesalahan pada format harga.", Toast.LENGTH_SHORT).show();
+                hargaPerJam = 0; // Nilai default jika parsing gagal
+            }
+
+
             if (selectedTimes.contains(selectedTime)) {
+                // Hapus waktu dari daftar pilihan
                 selectedTimes.remove(selectedTime);
                 Button button = view.findViewById(R.id.btnGridItem);
                 button.setBackgroundColor(getResources().getColor(R.color.white));
                 button.setTextColor(getResources().getColor(R.color.black));
                 Toast.makeText(this, "Waktu dibatalkan: " + selectedTime, Toast.LENGTH_SHORT).show();
             } else {
+                // Tambahkan waktu ke daftar pilihan
                 selectedTimes.add(selectedTime);
                 Button button = view.findViewById(R.id.btnGridItem);
                 button.setBackgroundColor(getResources().getColor(R.color.teal_700));
                 button.setTextColor(getResources().getColor(R.color.white));
                 Toast.makeText(this, "Waktu terpilih: " + selectedTime, Toast.LENGTH_SHORT).show();
             }
-        });
+
+            // Hitung total harga
+            double totalHarga = hargaPerJam * selectedTimes.size();
+            // Format total harga menggunakan NumberFormat
+            NumberFormat format = NumberFormat.getInstance(new Locale("id", "ID"));
+            format.setMinimumFractionDigits(2);  // Menjaga 2 digit desimal
+            format.setMaximumFractionDigits(2);  // Membatasi 2 digit desimal
+
+            // Set total harga ke TextView dengan format "Rp xxx.xxx,00"
+            tvTotalHarga.setText("Total Harga: Rp " + format.format(totalHarga));        });
 
         // Listener tombol kembali
         backButtonbook.setOnClickListener(view -> finish());
@@ -103,11 +129,13 @@ public class BookingActivity extends AppCompatActivity {
             }
 
             try {
-                double totalHarga = Double.parseDouble(harga);
+                // Hitung total harga
+                double hargaPerJam = Double.parseDouble(harga); // Ambil harga per jam dari Intent
+                double totalHarga = hargaPerJam * selectedTimes.size(); // Total harga = harga/jam x jumlah waktu
 
                 // Simpan data booking ke database
                 boolean isInserted = databaseHelper.insertTransaksiBooking(
-                        nama, telepon, idLapangan, tanggalBooking, selectedTimes.toString(), totalHarga, "Pending"
+                        idLapangan, nama, telepon, tanggalBooking, totalHarga, selectedTimes.toString()
                 );
 
                 if (isInserted) {
@@ -115,12 +143,12 @@ public class BookingActivity extends AppCompatActivity {
 
                     // Pindah ke PaymentActivity
                     Intent paymentIntent = new Intent(BookingActivity.this, PaymentActivity.class);
+                    paymentIntent.putExtra("idLapangan", idLapangan);
                     paymentIntent.putExtra("nama", nama);
                     paymentIntent.putExtra("telepon", telepon);
                     paymentIntent.putExtra("tanggalBooking", tanggalBooking);
                     paymentIntent.putExtra("selectedTimes", selectedTimes);
                     paymentIntent.putExtra("totalHarga", totalHarga);
-                    paymentIntent.putExtra("idLapangan", idLapangan);
                     startActivity(paymentIntent);
                     finish();
                 } else {

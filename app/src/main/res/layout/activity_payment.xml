@@ -14,13 +14,6 @@
         android:layout_height="56dp"
         android:background="#de2a25">
 
-        <ImageView
-            android:id="@+id/backButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
-            android:layout_marginStart="8dp"
-            android:contentDescription="Back Button" />
 
         <TextView
             android:id="@+id/title"
@@ -28,6 +21,7 @@
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
             android:layout_centerHorizontal="true"
+            android:fontFamily="@font/poppins_black"
             android:text="Payment Lapangan"
             android:textColor="@android:color/white"
             android:textSize="18sp"
@@ -41,7 +35,9 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         android:text="Total Harga"
-        android:textSize="16sp" />
+        android:textSize="17sp"
+        android:fontFamily="@font/poppins_black"
+        android:textStyle="bold"/>
 
     <TextView
         android:id="@+id/tvTotalHarga"
@@ -49,56 +45,49 @@
         android:layout_height="wrap_content"
         android:text="Rp 500.000"
         android:textColor="#FF0000"
+        android:fontFamily="@font/poppins_black"
         android:textSize="20sp"
         android:textStyle="bold" />
 
     <TextView
-        android:id="@+id/metodePembayaranLabel"
+        android:id="@+id/virtualAccountLabel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
-        android:text="Metode Pembayaran"
-        android:textSize="16sp" />
+        android:text="Virtual Account"
+        android:textStyle="bold"
+        android:fontFamily="@font/poppins_black"
+        android:textSize="17sp" />
 
-    <Spinner
-        android:id="@+id/metodePembayaran"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp" />
-
-    <TextView
-        android:id="@+id/nomorRekeningLabel"
-        android:layout_width="match_parent"
-        android:layout_height="56dp"
-        android:layout_marginTop="8dp"
-        android:text="Nomor Rekening / Virtual Account"
-        android:textSize="16sp" />
-
-    <EditText
-        android:id="@+id/nomorRekening"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:hint="Masukkan nomor rekening"
-        android:inputType="number" />
-
+    <!-- Virtual Account ID -->
     <TextView
         android:id="@+id/virtualAccountField"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:text="Virtual Account akan muncul di sini"
-        android:visibility="gone"
-        android:textColor="#000000"
-        android:textSize="16sp" />
+        android:text="1234567890"
+        android:textSize="20sp"
+        android:fontFamily="@font/poppins_light"
+        android:textColor="#000000" />
 
+    <TextView
+        android:id="@+id/virtualAccountExpiration"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="Nomor Virtual Account akan kadaluarsa dalam 12 jam."
+        android:textSize="14sp"
+        android:fontFamily="@font/poppins_light"
+        android:textColor="#FF0000" />
+
+    <!-- Kembali ke Halaman Awal Button -->
     <Button
-        android:id="@+id/konfirmasiPembayaran"
+        android:id="@+id/backToHomeButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         android:backgroundTint="#de2a25"
-        android:text="Konfirmasi Pembayaran"
+        android:text="Kembali"
+        android:fontFamily="@font/poppins_black"
         android:textColor="@android:color/white" />
 
 </LinearLayout>

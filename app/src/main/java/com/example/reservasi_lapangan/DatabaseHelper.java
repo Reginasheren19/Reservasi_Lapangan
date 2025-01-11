@@ -32,14 +32,15 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     // SQL untuk membuat tabel transaksi_booking tanpa foreign key id_user
     private static final String CREATE_TABLE_TRANSAKSI_BOOKING = "CREATE TABLE transaksi_booking (" +
             "id_transaksi INTEGER PRIMARY KEY AUTOINCREMENT, " +
-            "username TEXT NOT NULL, " +
             "id_lapangan INTEGER, " +
+            "nama TEXT NOT NULL, " +
+            "nomor_telepon TEXT NOT NULL, " +
             "tanggal_booking TEXT NOT NULL, " +
-            "waktu_mulai TEXT NOT NULL, " +
-            "waktu_selesai TEXT NOT NULL, " +
+            "waktu_mulai TEXT, " +  // Waktu mulai bisa diisi banyak, sebaiknya disimpan sebagai string
             "total_harga REAL NOT NULL, " +
             "status TEXT NOT NULL, " +
             "FOREIGN KEY(id_lapangan) REFERENCES lapangan(id_lapangan));";
+
 
     public DatabaseHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);

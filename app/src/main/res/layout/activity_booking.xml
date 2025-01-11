@@ -39,12 +39,12 @@
     <!-- Konten utama dalam ScrollView -->
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:padding="10dp">
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:gravity="center_horizontal"
             android:orientation="vertical"
             android:padding="8dp">
@@ -130,21 +130,20 @@
                 android:layout_marginBottom="16dp"
                 android:gravity="center"
                 android:horizontalSpacing="8dp"
-                android:numColumns="5"
+                android:numColumns="4"
                 android:stretchMode="columnWidth"
                 android:verticalSpacing="8dp" />
-
+            <!-- Button Bayar Booking -->
+            <Button
+                android:id="@+id/btnBayarBooking"
+                android:layout_width="300dp"
+                android:layout_gravity="center"
+                android:layout_height="wrap_content"
+                android:backgroundTint="@color/primary"
+                android:text="Bayar Booking"
+                android:textColor="@android:color/white" />
         </LinearLayout>
 
     </ScrollView>
-    <!-- Button Bayar Booking -->
-    <Button
-        android:id="@+id/btnBayarBooking"
-        android:layout_width="300dp"
-        android:layout_gravity="center"
-        android:layout_height="wrap_content"
-        android:backgroundTint="@color/primary"
-        android:text="Bayar Booking"
-        android:textColor="@android:color/white" />
 
 </LinearLayout>

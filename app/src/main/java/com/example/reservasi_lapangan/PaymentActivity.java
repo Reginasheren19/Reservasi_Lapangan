@@ -13,6 +13,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import java.util.Calendar;
 import java.util.Locale;
+import java.util.Random;
 
 public class PaymentActivity extends AppCompatActivity {
 
@@ -20,6 +21,7 @@ public class PaymentActivity extends AppCompatActivity {
     private TextView customerNameTextView, customerPhoneTextView, fieldNameTextView, fieldAddressTextView;
     private TextView bookingDateTextView, bookingTimeTextView;
     private Button backToHomeButton;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,7 +59,7 @@ public class PaymentActivity extends AppCompatActivity {
         tvTotalHarga.setText("Total Harga: Rp " + formattedTotalHarga);
 
         // Simulasi Virtual Account ID
-        String virtualAccount = "VA" + idLapangan + "123456";
+        String virtualAccount = idLapangan + generateUniqueCode();
         virtualAccountTextView.setText(virtualAccount);
         virtualAccountTextView.setVisibility(View.VISIBLE);
 
@@ -80,4 +82,15 @@ public class PaymentActivity extends AppCompatActivity {
             finish();  // Menutup PaymentActivity
         });
     }
+    // Method untuk menghasilkan kode unik 16 digit
+    private String generateUniqueCode() {
+        Random random = new Random();
+        StringBuilder uniqueCode = new StringBuilder();
+        for (int i = 0; i < 16; i++) {
+            int digit = random.nextInt(10); // Menghasilkan angka acak antara 0-9
+            uniqueCode.append(digit);
+        }
+        return uniqueCode.toString();
+    }
 }
+

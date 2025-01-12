@@ -45,6 +45,10 @@
             android:name=".BookingActivity"
             android:exported="true" />
 
+        <activity
+            android:name=".PaymentActivity"
+            android:exported="true" />
+
     </application>
 
 </manifest>

@@ -9,6 +9,9 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import java.text.NumberFormat;
+import java.util.Locale;
+
 public class DetailsActivity extends AppCompatActivity {
 
     private TextView placeNameTextView, placeLocationTextView, placeHargaTextView, placeDetailsTextView;
@@ -52,9 +55,24 @@ public class DetailsActivity extends AppCompatActivity {
         if (lokasi != null) {
             placeLocationTextView.setText(lokasi);
         }
+
+        // Format harga ke dalam format Indonesia (Rp 100.000,00)
         if (harga != null) {
-            placeHargaTextView.setText(harga);
+            NumberFormat format = NumberFormat.getNumberInstance(new Locale("id", "ID"));
+            try {
+                // Hapus simbol non-digit dan koma jika ada pada string harga
+                String hargaBersih = harga.replaceAll("[^\\d,]", ""); // Hanya ambil angka dan koma
+                double hargaValue = format.parse(hargaBersih).doubleValue();
+
+                // Format ulang harga dan tambahkan ,00
+                String formattedHarga = "Rp " + format.format(hargaValue) + ",00";
+                placeHargaTextView.setText(formattedHarga);
+            } catch (Exception e) {
+                Log.e("DetailsActivity", "Error parsing harga: " + e.getMessage());
+                placeHargaTextView.setText(harga); // Tampilkan harga asli jika gagal
+            }
         }
+
         if (deskripsi != null) {
             placeDetailsTextView.setText(deskripsi);
         }
@@ -82,7 +100,7 @@ public class DetailsActivity extends AppCompatActivity {
             bookingIntent.putExtra("idLapangan", idLapangan); // Kirim ID Lapangan
             bookingIntent.putExtra("namaLapangan", namaLapangan); // Kirim data lain ke BookingActivity
             bookingIntent.putExtra("lokasi", lokasi);
-            bookingIntent.putExtra("harga", harga);
+            bookingIntent.putExtra("harga", harga); // Harga asli dikirim
             startActivity(bookingIntent);
         });
     }

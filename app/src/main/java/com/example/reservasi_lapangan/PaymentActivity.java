@@ -69,9 +69,11 @@ public class PaymentActivity extends AppCompatActivity {
         customerNameTextView.setText("Nama Pemesan: " + namaPemesan);
         customerPhoneTextView.setText("Telepon: " + teleponPemesan);
 
-
         // Tampilkan tanggal booking
         bookingDateTextView.setText("Tanggal Booking: " + tanggalBooking);
+
+        // Listener tombol kembali
+        backButtonbook.setOnClickListener(view -> finish());
 
         // Tampilkan waktu yang dipilih
         StringBuilder times = new StringBuilder();

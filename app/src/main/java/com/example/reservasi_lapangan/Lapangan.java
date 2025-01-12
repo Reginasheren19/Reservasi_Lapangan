@@ -51,7 +51,7 @@ public class Lapangan {
         NumberFormat format = NumberFormat.getInstance(new Locale("id", "ID"));
         format.setMinimumFractionDigits(2);  // Menjaga 2 digit desimal
         format.setMaximumFractionDigits(2);  // Membatasi 2 digit desimal
-        return "Rp " + format.format(harga);
+        return format.format(harga); // Mengembalikan harga dalam format yang sesuai
     }
 
     public void setHarga(double harga) {

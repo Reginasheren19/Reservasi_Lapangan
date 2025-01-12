@@ -77,7 +77,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return result != -1;
     }
 
-    public boolean insertTransaksiBooking(int nama, String telepon, String idLapangan, String tanggalBooking, double waktuMulai, String totalHarga) {
+    public boolean insertTransaksiBooking(int idLapangan, String nama, String telepon, String tanggalBooking, String waktuMulai, double totalHarga) {
         SQLiteDatabase db = this.getWritableDatabase();
 
         ContentValues values = new ContentValues();

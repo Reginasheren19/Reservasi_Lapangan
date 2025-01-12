@@ -14,6 +14,7 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
 import java.text.NumberFormat;
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Locale;
 
@@ -29,6 +30,8 @@ public class BookingActivity extends AppCompatActivity {
             "18:00", "19:00", "20:00", "21:00"
     };
 
+    private double hargaPerJam = 0.0; // Harga per jam yang akan diambil dari Intent
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -42,7 +45,6 @@ public class BookingActivity extends AppCompatActivity {
         inputNama = findViewById(R.id.inputNama);
         inputTelepon = findViewById(R.id.inputTelepon);
         inputDate = findViewById(R.id.InputDate);
-
 
         GridView gridView = findViewById(R.id.gridView);
         Button btnBayarBooking = findViewById(R.id.btnBayarBooking);
@@ -62,10 +64,27 @@ public class BookingActivity extends AppCompatActivity {
             return;
         }
 
+        // Parsing harga menggunakan NumberFormat sesuai locale Indonesia
+        NumberFormat format = NumberFormat.getInstance(new Locale("id", "ID"));
+        try {
+            // Ambil harga dari Intent dan pastikan format yang diterima bersih dari simbol mata uang
+            String hargaString = harga.replaceAll("[^\\d,]", "");  // Hapus simbol non-digit dan koma
+
+            // Parsing harga yang telah dibersihkan
+            hargaPerJam = format.parse(hargaString).doubleValue();
+            Log.d("BookingActivity", "Harga per jam: " + hargaPerJam); // Log untuk memastikan hargaPerJam sudah terisi dengan benar
+        } catch (ParseException e) {
+            Log.e("BookingActivity", "Error parsing harga: " + e.getMessage());
+            Toast.makeText(this, "Terjadi kesalahan pada format harga.", Toast.LENGTH_SHORT).show();
+            hargaPerJam = 0.0; // Nilai default jika parsing gagal
+        }
+
         // Tampilkan data di TextView
         tvNamaLapangan.setText(namaLapangan != null ? namaLapangan : "N/A");
         tvHarga.setText(harga != null ? harga : "N/A");
         tvLokasi.setText(lokasi != null ? lokasi : "N/A");
+        tvTotalHarga.setText("Total Harga: 0");
+
 
         // Inisialisasi DatabaseHelper
         databaseHelper = new DatabaseHelper(this);
@@ -77,41 +96,31 @@ public class BookingActivity extends AppCompatActivity {
         // Listener untuk GridView
         gridView.setOnItemClickListener((parent, view, position, id) -> {
             String selectedTime = waktuMulai[position];
-            double hargaPerJam;
-            try {
-                hargaPerJam = Double.parseDouble(harga);
-            } catch (NumberFormatException e) {
-                Log.e("BookingActivity", "Error parsing harga: " + e.getMessage());
-                Toast.makeText(this, "Terjadi kesalahan pada format harga.", Toast.LENGTH_SHORT).show();
-                hargaPerJam = 0; // Nilai default jika parsing gagal
-            }
 
-
+            Button button = (Button) view;
             if (selectedTimes.contains(selectedTime)) {
                 // Hapus waktu dari daftar pilihan
                 selectedTimes.remove(selectedTime);
-                Button button = view.findViewById(R.id.btnGridItem);
                 button.setBackgroundColor(getResources().getColor(R.color.white));
                 button.setTextColor(getResources().getColor(R.color.black));
                 Toast.makeText(this, "Waktu dibatalkan: " + selectedTime, Toast.LENGTH_SHORT).show();
             } else {
                 // Tambahkan waktu ke daftar pilihan
                 selectedTimes.add(selectedTime);
-                Button button = view.findViewById(R.id.btnGridItem);
                 button.setBackgroundColor(getResources().getColor(R.color.teal_700));
                 button.setTextColor(getResources().getColor(R.color.white));
                 Toast.makeText(this, "Waktu terpilih: " + selectedTime, Toast.LENGTH_SHORT).show();
             }
 
-            // Hitung total harga
+            // Hitung total harga berdasarkan jumlah waktu yang dipilih
             double totalHarga = hargaPerJam * selectedTimes.size();
-            // Format total harga menggunakan NumberFormat
-            NumberFormat format = NumberFormat.getInstance(new Locale("id", "ID"));
-            format.setMinimumFractionDigits(2);  // Menjaga 2 digit desimal
-            format.setMaximumFractionDigits(2);  // Membatasi 2 digit desimal
 
-            // Set total harga ke TextView dengan format "Rp xxx.xxx,00"
-            tvTotalHarga.setText("Total Harga: Rp " + format.format(totalHarga));        });
+            // Format total harga menggunakan NumberFormat untuk tampilan yang rapi
+            String formattedTotalHarga = NumberFormat.getInstance(new Locale("id", "ID")).format(totalHarga);
+
+            // Perbarui tvTotalHarga dengan total harga yang telah diformat
+            tvTotalHarga.setText("Total Harga: " + formattedTotalHarga);
+        });
 
         // Listener tombol kembali
         backButtonbook.setOnClickListener(view -> finish());
@@ -129,14 +138,13 @@ public class BookingActivity extends AppCompatActivity {
             }
 
             try {
-                // Hitung total harga
-                double hargaPerJam = Double.parseDouble(harga); // Ambil harga per jam dari Intent
-                double totalHarga = hargaPerJam * selectedTimes.size(); // Total harga = harga/jam x jumlah waktu
+            // Hitung total harga
+            double totalHarga = hargaPerJam * selectedTimes.size();
 
-                // Simpan data booking ke database
-                boolean isInserted = databaseHelper.insertTransaksiBooking(
-                        idLapangan, nama, telepon, tanggalBooking, totalHarga, selectedTimes.toString()
-                );
+            // Simpan data booking ke database
+            boolean isInserted = databaseHelper.insertTransaksiBooking(
+                    idLapangan, nama, telepon, tanggalBooking, selectedTimes.toString(), totalHarga
+            );
 
                 if (isInserted) {
                     Toast.makeText(this, "Booking berhasil! Menuju halaman pembayaran.", Toast.LENGTH_SHORT).show();
@@ -154,9 +162,9 @@ public class BookingActivity extends AppCompatActivity {
                 } else {
                     Toast.makeText(this, "Gagal menyimpan data booking. Coba lagi.", Toast.LENGTH_SHORT).show();
                 }
-            } catch (NumberFormatException e) {
-                Toast.makeText(this, "Format harga tidak valid.", Toast.LENGTH_SHORT).show();
-                Log.e("BookingActivity", "Error parsing harga: " + e.getMessage());
+            } catch (Exception e) {
+                Toast.makeText(this, "Terjadi kesalahan saat memproses booking.", Toast.LENGTH_SHORT).show();
+                Log.e("BookingActivity", "Error: " + e.getMessage());
             }
         });
     }

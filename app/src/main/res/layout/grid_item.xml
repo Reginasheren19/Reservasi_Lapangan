@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Button xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/btnGridItem"
-    android:layout_width="wrap_content"
+    android:layout_width="85dp"
     android:layout_height="wrap_content"
-    android:layout_margin="8dp"
+    android:layout_margin="15dp"
     android:background="@drawable/bg_rounded_button"
     android:text="08:00"
     android:textColor="@android:color/white"

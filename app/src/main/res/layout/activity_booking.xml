@@ -37,11 +37,14 @@
 
     </androidx.appcompat.widget.Toolbar>
 
-
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="16dp">
     <!-- Konten utama dalam NestedScrollView -->
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:padding="10dp">
 
         <LinearLayout
@@ -148,24 +151,27 @@
 
             <GridView
                 android:id="@+id/gridView"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_width="wrap_content"
+                android:layout_height="240dp"
                 android:layout_marginBottom="16dp"
                 android:gravity="center"
                 android:horizontalSpacing="8dp"
                 android:numColumns="4"
                 android:stretchMode="columnWidth"
-                android:verticalSpacing="8dp" />
+                android:verticalSpacing="10dp" />
             <!-- Button Bayar Booking -->
-            <Button
-                android:id="@+id/btnBayarBooking"
-                android:layout_width="300dp"
-                android:layout_height="51dp"
-                android:layout_gravity="center"
-                android:backgroundTint="@color/primary"
-                android:text="Bayar Booking"
-                android:textColor="@android:color/white" />
         </LinearLayout>
     </ScrollView>
 
+        <Button
+            android:id="@+id/btnBayarBooking"
+            android:layout_width="300dp"
+            android:layout_height="51dp"
+            android:layout_centerHorizontal="true"
+            android:backgroundTint="@color/primary"
+            android:text="Bayar Booking"
+            android:layout_alignParentBottom="true"
+            android:textColor="@android:color/white" />
+
+    </RelativeLayout>
 </LinearLayout>

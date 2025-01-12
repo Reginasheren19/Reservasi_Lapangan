@@ -49,7 +49,7 @@
             <ScrollView
                 android:id="@+id/scrollViewContent"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="450dp"
                 android:fillViewport="true">
 
                 <LinearLayout
@@ -146,21 +146,18 @@
                         android:text="Detailed description of the place"
                         android:textSize="14sp" />
 
-                    <!-- Tombol Booking -->
-                    <Button
-                        android:id="@+id/BtnPilihJadwal"
-                        android:layout_width="300dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="16dp"
-                        android:layout_marginEnd="16dp"
-                        android:layout_marginTop="170dp"
-                        android:layout_gravity="center"
-                        android:backgroundTint="@color/primary"
-                        android:text="Booking Jadwal"
-                        android:textColor="@android:color/white"
-                        android:textSize="16sp" />
                 </LinearLayout>
             </ScrollView>
+
+            <Button
+                android:id="@+id/BtnPilihJadwal"
+                android:layout_width="300dp"
+                android:layout_height="51dp"
+                android:layout_centerHorizontal="true"
+                android:backgroundTint="@color/primary"
+                android:text="Booking Jadwal"
+                android:layout_alignParentBottom="true"
+                android:textColor="@android:color/white" />
         </RelativeLayout>
     </androidx.cardview.widget.CardView>
 </LinearLayout>

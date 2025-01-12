@@ -104,7 +104,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         values.put("nama_lapangan", "Lapangan Futsal");
         values.put("lokasi", "Jl. Raya Malang No.1 Kavling A");
         values.put("harga", 100000);
-        values.put("deskripsi", "Lapangan futsal indoor dengan rumput sintetis berkualitas tinggi...");
+        values.put("deskripsi", "Lapangan futsal indoor dengan rumput sintetis berkualitas tinggi, dilengkapi pencahayaan LED terang untuk mendukung permainan siang maupun malam. Fasilitas meliputi ruang ganti, kamar mandi, dan area parkir luas, menjadikan pengalaman bermain semakin nyaman. Lokasi strategis dan mudah diakses. Booking sekarang untuk bermain dengan lebih seru!");
         values.put("gambar", "lapangan_futsal");
         db.insert("lapangan", null, values);
 
@@ -113,7 +113,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         values.put("nama_lapangan", "Lapangan Basket");
         values.put("lokasi", "Jl. Raya Surabaya No.2 Blok B");
         values.put("harga", 120000);
-        values.put("deskripsi", "Lapangan basket outdoor dengan permukaan yang dilapisi cat anti-selip...");
+        values.put("deskripsi", "Lapangan basket outdoor dengan permukaan yang dilapisi cat anti-selip, dirancang untuk mendukung permainan yang aman dan nyaman di segala cuaca. Dilengkapi ring basket standar, pencahayaan optimal untuk malam hari, serta area sekitar yang luas untuk penonton atau istirahat. Lokasi strategis dan cocok untuk latihan, pertandingan, atau sekadar bermain santai. Booking sekarang dan rasakan serunya bermain basket di lapangan ini!");
         values.put("gambar", "lapangan_basket");
         db.insert("lapangan", null, values);
 

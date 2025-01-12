@@ -12,24 +12,37 @@
         android:orientation="vertical"
         android:padding="16dp">
 
-        <!-- Top Bar -->
-        <RelativeLayout
+        <!-- AppBar dengan Toolbar -->
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
             android:layout_width="match_parent"
-            android:layout_height="56dp"
-            android:background="#de2a25">
+            android:layout_height="wrap_content"
+            android:background="@color/primary"
+            android:elevation="4dp">
+
+            <ImageView
+                android:id="@+id/backButtonbook"
+                android:layout_width="21dp"
+                android:layout_height="21dp"
+                android:layout_gravity="start|top"
+                android:layout_marginStart="18dp"
+                android:layout_marginTop="25dp"
+                android:textStyle="bold"
+                android:background="@android:color/transparent"
+                android:contentDescription="Kembali"
+                android:src="@drawable/backwhite" />
 
             <TextView
-                android:id="@+id/title"
+                android:id="@+id/tvToolbarTitle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
-                android:layout_centerHorizontal="true"
-                android:fontFamily="@font/poppins_black"
+                android:layout_marginStart="15dp"
                 android:text="Payment Lapangan"
                 android:textColor="@android:color/white"
-                android:textSize="18sp"
+                android:textSize="20sp"
                 android:textStyle="bold" />
-        </RelativeLayout>
+
+        </androidx.appcompat.widget.Toolbar>
 
         <!-- Identitas Customer -->
         <androidx.cardview.widget.CardView

@@ -6,6 +6,7 @@ import android.icu.text.SimpleDateFormat;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 import java.util.ArrayList;
@@ -38,6 +39,8 @@ public class PaymentActivity extends AppCompatActivity {
         bookingTimeTextView = findViewById(R.id.bookingTime);
         backToHomeButton = findViewById(R.id.backToHomeButton);
 
+        ImageView backButtonbook = findViewById(R.id.backButtonbook);
+
         // Ambil data dari Intent
         int idLapangan = getIntent().getIntExtra("idLapangan", -1); // Default -1 jika tidak ditemukan
         double totalHarga = getIntent().getDoubleExtra("totalHarga", 0);
@@ -65,7 +68,7 @@ public class PaymentActivity extends AppCompatActivity {
         // Tampilkan informasi pemesan
         customerNameTextView.setText("Nama Pemesan: " + namaPemesan);
         customerPhoneTextView.setText("Telepon: " + teleponPemesan);
-        
+
 
         // Tampilkan tanggal booking
         bookingDateTextView.setText("Tanggal Booking: " + tanggalBooking);

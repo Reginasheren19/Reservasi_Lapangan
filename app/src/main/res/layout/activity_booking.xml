@@ -41,127 +41,127 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:padding="16dp">
-    <!-- Konten utama dalam NestedScrollView -->
-    <ScrollView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:padding="10dp">
-
-        <LinearLayout
+        <!-- Konten utama dalam NestedScrollView -->
+        <ScrollView
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:gravity="center_horizontal"
-            android:orientation="vertical"
-            android:padding="8dp">
+            android:layout_height="wrap_content"
+            android:padding="10dp">
 
-            <!-- TextView Nama Lapangan -->
-            <TextView
-                android:id="@+id/tvNamaLapangan"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="4dp"
-                android:layout_gravity="start"
-                android:textStyle="bold"
-                android:text="Nama Lapangan"
-                android:textSize="18sp" />
-
-            <!-- TextView Harga -->
-            <TextView
-                android:id="@+id/tvHarga"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="4dp"
-                android:layout_gravity="start"
-                android:textStyle="bold"
-                android:text="Harga"
-                android:textSize="18sp" />
-
-            <!-- TextView Lokasi -->
-            <TextView
-                android:id="@+id/tvLokasi"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="16dp"
-                android:layout_gravity="start"
-                android:textStyle="bold"
-                android:text="Lokasi"
-                android:textSize="18sp" />
-
-            <!-- TextView Lokasi -->
-            <TextView
-                android:id="@+id/tvTotalHarga"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="16dp"
-                android:text=""
-                android:textSize="14sp" />
-
-            <!-- EditText untuk Nama -->
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="4dp"
-                android:layout_gravity="start"
-                android:textStyle="bold"
-                android:text="Nama"
-                android:textSize="16sp" />
-
-            <EditText
-                android:id="@+id/inputNama"
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="48dp"
-                android:layout_marginBottom="16dp"
-                android:hint="Masukkan Nama"
-                android:inputType="textPersonName" />
+                android:layout_height="match_parent"
+                android:gravity="center_horizontal"
+                android:orientation="vertical"
+                android:padding="8dp">
 
-            <!-- EditText untuk Nomor Telepon -->
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="4dp"
-                android:layout_gravity="start"
-                android:textStyle="bold"
-                android:text="Nomor Telepon"
-                android:textSize="16sp" />
+                <!-- TextView Nama Lapangan -->
+                <TextView
+                    android:id="@+id/tvNamaLapangan"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="4dp"
+                    android:layout_gravity="start"
+                    android:textStyle="bold"
+                    android:text="Nama Lapangan"
+                    android:textSize="18sp" />
 
-            <EditText
-                android:id="@+id/inputTelepon"
-                android:layout_width="match_parent"
-                android:layout_height="48dp"
-                android:layout_marginBottom="16dp"
-                android:hint="Masukkan Nomor Telepon"
-                android:inputType="phone" />
+                <!-- TextView Harga -->
+                <TextView
+                    android:id="@+id/tvHarga"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="4dp"
+                    android:layout_gravity="start"
+                    android:textStyle="bold"
+                    android:text="Harga"
+                    android:textSize="18sp" />
 
-            <!-- DatePicker untuk Tanggal -->
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="4dp"
-                android:layout_gravity="start"
-                android:textStyle="bold"
-                android:text="Tanggal Booking"
-                android:textSize="16sp" />
+                <!-- TextView Lokasi -->
+                <TextView
+                    android:id="@+id/tvLokasi"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="16dp"
+                    android:layout_gravity="start"
+                    android:textStyle="bold"
+                    android:text="Lokasi"
+                    android:textSize="18sp" />
 
-            <EditText
-                android:id="@+id/InputDate"
-                android:layout_width="match_parent"
-                android:layout_height="48dp"
-                android:layout_marginBottom="16dp"
-                android:hint="dd/MM/yyyy" />
+                <!-- TextView Lokasi -->
+                <TextView
+                    android:id="@+id/tvTotalHarga"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="16dp"
+                    android:text=""
+                    android:textSize="14sp" />
 
-            <GridView
-                android:id="@+id/gridView"
-                android:layout_width="wrap_content"
-                android:layout_height="240dp"
-                android:layout_marginBottom="16dp"
-                android:gravity="center"
-                android:horizontalSpacing="8dp"
-                android:numColumns="4"
-                android:stretchMode="columnWidth"
-                android:verticalSpacing="10dp" />
-            <!-- Button Bayar Booking -->
-        </LinearLayout>
-    </ScrollView>
+                <!-- EditText untuk Nama -->
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="4dp"
+                    android:layout_gravity="start"
+                    android:textStyle="bold"
+                    android:text="Nama"
+                    android:textSize="16sp" />
+
+                <EditText
+                    android:id="@+id/inputNama"
+                    android:layout_width="match_parent"
+                    android:layout_height="48dp"
+                    android:layout_marginBottom="16dp"
+                    android:hint="Masukkan Nama"
+                    android:inputType="textPersonName" />
+
+                <!-- EditText untuk Nomor Telepon -->
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="4dp"
+                    android:layout_gravity="start"
+                    android:textStyle="bold"
+                    android:text="Nomor Telepon"
+                    android:textSize="16sp" />
+
+                <EditText
+                    android:id="@+id/inputTelepon"
+                    android:layout_width="match_parent"
+                    android:layout_height="48dp"
+                    android:layout_marginBottom="16dp"
+                    android:hint="Masukkan Nomor Telepon"
+                    android:inputType="phone" />
+
+                <!-- DatePicker untuk Tanggal -->
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="4dp"
+                    android:layout_gravity="start"
+                    android:textStyle="bold"
+                    android:text="Tanggal Booking"
+                    android:textSize="16sp" />
+
+                <EditText
+                    android:id="@+id/InputDate"
+                    android:layout_width="match_parent"
+                    android:layout_height="48dp"
+                    android:layout_marginBottom="16dp"
+                    android:hint="dd/MM/yyyy" />
+
+                <GridView
+                    android:id="@+id/gridView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="150dp"
+                    android:layout_marginBottom="16dp"
+                    android:gravity="center"
+                    android:horizontalSpacing="10dp"
+                    android:numColumns="3"
+                    android:stretchMode="columnWidth"
+                    android:verticalSpacing="10dp" />
+                <!-- Button Bayar Booking -->
+            </LinearLayout>
+        </ScrollView>
 
         <Button
             android:id="@+id/btnBayarBooking"

@@ -8,7 +8,7 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:orientation="vertical"
         android:padding="16dp">
 
@@ -216,15 +216,21 @@
             </LinearLayout>
         </androidx.cardview.widget.CardView>
 
-        <!-- Kembali ke Halaman Awal Button -->
-        <Button
-            android:id="@+id/backToHomeButton"
+        <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:backgroundTint="#de2a25"
-            android:text="Kembali"
-            android:fontFamily="@font/poppins_black"
-            android:textColor="@android:color/white" />
+            android:padding="16dp">
+
+            <Button
+                android:id="@+id/backToHomeButton"
+                android:layout_width="300dp"
+                android:layout_height="51dp"
+                android:layout_centerHorizontal="true"
+                android:backgroundTint="@color/primary"
+                android:text="Kembali"
+                android:layout_alignParentBottom="true"
+                android:textColor="@android:color/white" />
+
+        </RelativeLayout>
     </LinearLayout>
 </ScrollView>

@@ -16,9 +16,9 @@ import java.util.Locale;
 
 public class PaymentActivity extends AppCompatActivity {
 
-    private TextView tvTotalHarga;
-    private TextView virtualAccountTextView;
-    private TextView virtualAccountExpirationTextView;
+    private TextView tvTotalHarga, virtualAccountTextView, virtualAccountExpirationTextView;
+    private TextView customerNameTextView, customerPhoneTextView, fieldNameTextView, fieldAddressTextView;
+    private TextView bookingDateTextView, bookingTimeTextView;
     private Button backToHomeButton;
 
     @Override
@@ -30,6 +30,12 @@ public class PaymentActivity extends AppCompatActivity {
         tvTotalHarga = findViewById(R.id.tvTotalHarga);
         virtualAccountTextView = findViewById(R.id.virtualAccountField);
         virtualAccountExpirationTextView = findViewById(R.id.virtualAccountExpiration);
+        customerNameTextView = findViewById(R.id.customerName);
+        customerPhoneTextView = findViewById(R.id.customerPhone);
+        fieldNameTextView = findViewById(R.id.fieldName);
+        fieldAddressTextView = findViewById(R.id.fieldAddress);
+        bookingDateTextView = findViewById(R.id.bookingDate);
+        bookingTimeTextView = findViewById(R.id.bookingTime);
         backToHomeButton = findViewById(R.id.backToHomeButton);
 
         // Ambil data total harga dari Intent

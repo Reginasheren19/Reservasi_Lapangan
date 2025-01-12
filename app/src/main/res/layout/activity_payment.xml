@@ -1,93 +1,236 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:padding="16dp"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".PaymentActivity">
 
-    <!-- Top Bar -->
-    <RelativeLayout
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="56dp"
-        android:background="#de2a25">
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="16dp">
 
+        <!-- Top Bar -->
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="56dp"
+            android:background="#de2a25">
 
-        <TextView
-            android:id="@+id/title"
-            android:layout_width="wrap_content"
+            <TextView
+                android:id="@+id/title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_centerHorizontal="true"
+                android:fontFamily="@font/poppins_black"
+                android:text="Payment Lapangan"
+                android:textColor="@android:color/white"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+        </RelativeLayout>
+
+        <!-- Identitas Customer -->
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
-            android:layout_centerHorizontal="true"
+            android:layout_marginTop="16dp"
+            android:padding="16dp"
+            android:elevation="4dp"
+            app:cardCornerRadius="8dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/identityDetailsLabel"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Identitas Customer"
+                    android:textSize="17sp"
+                    android:fontFamily="@font/poppins_black"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/customerName"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:text="Nama Pemesan: John Doe"
+                    android:textSize="15sp"
+                    android:fontFamily="@font/poppins_light"
+                    android:textColor="#000000" />
+
+                <TextView
+                    android:id="@+id/customerPhone"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
+                    android:text="No. Telepon: 081234567890"
+                    android:textSize="15sp"
+                    android:fontFamily="@font/poppins_light"
+                    android:textColor="#000000" />
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
+
+        <!-- Booking Information -->
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:padding="16dp"
+            android:elevation="4dp"
+            app:cardCornerRadius="8dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/fieldDetailsLabel"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Booking Information"
+                    android:textSize="17sp"
+                    android:fontFamily="@font/poppins_black"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/fieldName"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:text="Nama Lapangan: Lapangan Futsal ABC"
+                    android:textSize="15sp"
+                    android:fontFamily="@font/poppins_light"
+                    android:textColor="#000000" />
+
+                <TextView
+                    android:id="@+id/fieldAddress"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
+                    android:text="Alamat: Jl. Merdeka No. 123, Jakarta"
+                    android:textSize="15sp"
+                    android:fontFamily="@font/poppins_light"
+                    android:textColor="#000000" />
+
+                <TextView
+                    android:id="@+id/bookingDate"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
+                    android:text="Tanggal Booking: 12 Januari 2025"
+                    android:textSize="15sp"
+                    android:fontFamily="@font/poppins_light"
+                    android:textColor="#000000" />
+
+                <TextView
+                    android:id="@+id/bookingTime"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
+                    android:text="Jam Booking: 14:00 - 16:00"
+                    android:textSize="15sp"
+                    android:fontFamily="@font/poppins_light"
+                    android:textColor="#000000" />
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
+
+        <!-- Total Harga -->
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:padding="16dp"
+            android:elevation="4dp"
+            app:cardCornerRadius="8dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/totalHargaLabel"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Total Harga"
+                    android:textSize="17sp"
+                    android:fontFamily="@font/poppins_black"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/tvTotalHarga"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:text="Rp 500.000"
+                    android:textColor="#FF0000"
+                    android:fontFamily="@font/poppins_black"
+                    android:textSize="20sp"
+                    android:textStyle="bold" />
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
+
+        <!-- Virtual Account -->
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:padding="16dp"
+            android:elevation="4dp"
+            app:cardCornerRadius="8dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/virtualAccountLabel"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Virtual Account"
+                    android:textSize="17sp"
+                    android:fontFamily="@font/poppins_black"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/virtualAccountField"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:text="1234567890"
+                    android:textSize="20sp"
+                    android:fontFamily="@font/poppins_light"
+                    android:textColor="#000000" />
+
+                <TextView
+                    android:id="@+id/virtualAccountExpiration"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:text="Kadaluarsa dalam 12 jam."
+                    android:textSize="14sp"
+                    android:fontFamily="@font/poppins_light"
+                    android:textColor="#FF0000" />
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
+
+        <!-- Kembali ke Halaman Awal Button -->
+        <Button
+            android:id="@+id/backToHomeButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:backgroundTint="#de2a25"
+            android:text="Kembali"
             android:fontFamily="@font/poppins_black"
-            android:text="Payment Lapangan"
-            android:textColor="@android:color/white"
-            android:textSize="18sp"
-            android:textStyle="bold" />
-    </RelativeLayout>
-
-    <!-- Content -->
-    <TextView
-        android:id="@+id/totalHargaLabel"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:text="Total Harga"
-        android:textSize="17sp"
-        android:fontFamily="@font/poppins_black"
-        android:textStyle="bold"/>
-
-    <TextView
-        android:id="@+id/tvTotalHarga"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Rp 500.000"
-        android:textColor="#FF0000"
-        android:fontFamily="@font/poppins_black"
-        android:textSize="20sp"
-        android:textStyle="bold" />
-
-    <TextView
-        android:id="@+id/virtualAccountLabel"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:text="Virtual Account"
-        android:textStyle="bold"
-        android:fontFamily="@font/poppins_black"
-        android:textSize="17sp" />
-
-    <!-- Virtual Account ID -->
-    <TextView
-        android:id="@+id/virtualAccountField"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="1234567890"
-        android:textSize="20sp"
-        android:fontFamily="@font/poppins_light"
-        android:textColor="#000000" />
-
-    <TextView
-        android:id="@+id/virtualAccountExpiration"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:text="Nomor Virtual Account akan kadaluarsa dalam 12 jam."
-        android:textSize="14sp"
-        android:fontFamily="@font/poppins_light"
-        android:textColor="#FF0000" />
-
-    <!-- Kembali ke Halaman Awal Button -->
-    <Button
-        android:id="@+id/backToHomeButton"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:backgroundTint="#de2a25"
-        android:text="Kembali"
-        android:fontFamily="@font/poppins_black"
-        android:textColor="@android:color/white" />
-
-</LinearLayout>
+            android:textColor="@android:color/white" />
+    </LinearLayout>
+</ScrollView>

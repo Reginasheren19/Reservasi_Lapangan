@@ -3,7 +3,6 @@ package com.example.reservasi_lapangan;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.GridView;
@@ -65,7 +64,7 @@ public class BookingActivity extends AppCompatActivity {
         }
 
         // Parsing harga menggunakan NumberFormat sesuai locale Indonesia
-        NumberFormat format = NumberFormat.getInstance(new Locale("id", "ID"));
+        NumberFormat format = NumberFormat.getNumberInstance(new Locale("id", "ID"));
         try {
             // Ambil harga dari Intent dan pastikan format yang diterima bersih dari simbol mata uang
             String hargaString = harga.replaceAll("[^\\d,]", "");  // Hapus simbol non-digit dan koma
@@ -81,10 +80,13 @@ public class BookingActivity extends AppCompatActivity {
 
         // Tampilkan data di TextView
         tvNamaLapangan.setText(namaLapangan != null ? namaLapangan : "N/A");
-        tvHarga.setText(harga != null ? harga : "N/A");
-        tvLokasi.setText(lokasi != null ? lokasi : "N/A");
-        tvTotalHarga.setText("Total Harga: 0");
 
+        // Format harga dengan "Rp" dan dua desimal, sesuai format Indonesia
+        String formattedHarga = "Rp " + format.format(hargaPerJam) + ",00";
+        tvHarga.setText(harga != null ? formattedHarga : "N/A");
+
+        tvLokasi.setText(lokasi != null ? lokasi : "N/A");
+        tvTotalHarga.setText("");
 
         // Inisialisasi DatabaseHelper
         databaseHelper = new DatabaseHelper(this);
@@ -115,8 +117,8 @@ public class BookingActivity extends AppCompatActivity {
             // Hitung total harga berdasarkan jumlah waktu yang dipilih
             double totalHarga = hargaPerJam * selectedTimes.size();
 
-            // Format total harga menggunakan NumberFormat untuk tampilan yang rapi
-            String formattedTotalHarga = NumberFormat.getInstance(new Locale("id", "ID")).format(totalHarga);
+            // Format total harga sesuai dengan format Indonesia
+            String formattedTotalHarga = "Rp " + format.format(totalHarga) + ",00";
 
             // Perbarui tvTotalHarga dengan total harga yang telah diformat
             tvTotalHarga.setText("Total Harga: " + formattedTotalHarga);
@@ -138,13 +140,13 @@ public class BookingActivity extends AppCompatActivity {
             }
 
             try {
-            // Hitung total harga
-            double totalHarga = hargaPerJam * selectedTimes.size();
+                // Hitung total harga
+                double totalHarga = hargaPerJam * selectedTimes.size();
 
-            // Simpan data booking ke database
-            boolean isInserted = databaseHelper.insertTransaksiBooking(
-                    idLapangan, nama, telepon, tanggalBooking, selectedTimes.toString(), totalHarga
-            );
+                // Simpan data booking ke database
+                boolean isInserted = databaseHelper.insertTransaksiBooking(
+                        idLapangan, nama, telepon, tanggalBooking, selectedTimes.toString(), totalHarga
+                );
 
                 if (isInserted) {
                     Toast.makeText(this, "Booking berhasil! Menuju halaman pembayaran.", Toast.LENGTH_SHORT).show();

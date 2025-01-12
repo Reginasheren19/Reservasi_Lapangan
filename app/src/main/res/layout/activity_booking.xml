@@ -10,7 +10,7 @@
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="?attr/colorPrimary"
+        android:background="@color/primary"
         android:elevation="4dp">
 
         <ImageView
@@ -20,6 +20,7 @@
             android:layout_gravity="start|top"
             android:layout_marginStart="18dp"
             android:layout_marginTop="25dp"
+            android:textStyle="bold"
             android:background="@android:color/transparent"
             android:contentDescription="Kembali"
             android:src="@drawable/backwhite" />
@@ -36,7 +37,8 @@
 
     </androidx.appcompat.widget.Toolbar>
 
-    <!-- Konten utama dalam ScrollView -->
+
+    <!-- Konten utama dalam NestedScrollView -->
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -55,8 +57,10 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="4dp"
+                android:layout_gravity="start"
+                android:textStyle="bold"
                 android:text="Nama Lapangan"
-                android:textSize="16sp" />
+                android:textSize="18sp" />
 
             <!-- TextView Harga -->
             <TextView
@@ -64,8 +68,10 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="4dp"
+                android:layout_gravity="start"
+                android:textStyle="bold"
                 android:text="Harga"
-                android:textSize="16sp" />
+                android:textSize="18sp" />
 
             <!-- TextView Lokasi -->
             <TextView
@@ -73,8 +79,10 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="16dp"
+                android:layout_gravity="start"
+                android:textStyle="bold"
                 android:text="Lokasi"
-                android:textSize="16sp" />
+                android:textSize="18sp" />
 
             <!-- TextView Lokasi -->
             <TextView
@@ -82,14 +90,16 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="16dp"
-                android:text="Total Harga"
-                android:textSize="16sp" />
+                android:text=""
+                android:textSize="14sp" />
 
             <!-- EditText untuk Nama -->
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="4dp"
+                android:layout_gravity="start"
+                android:textStyle="bold"
                 android:text="Nama"
                 android:textSize="16sp" />
 
@@ -106,6 +116,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="4dp"
+                android:layout_gravity="start"
+                android:textStyle="bold"
                 android:text="Nomor Telepon"
                 android:textSize="16sp" />
 
@@ -122,6 +134,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="4dp"
+                android:layout_gravity="start"
+                android:textStyle="bold"
                 android:text="Tanggal Booking"
                 android:textSize="16sp" />
 
@@ -135,7 +149,7 @@
             <GridView
                 android:id="@+id/gridView"
                 android:layout_width="match_parent"
-                android:layout_height="115dp"
+                android:layout_height="match_parent"
                 android:layout_marginBottom="16dp"
                 android:gravity="center"
                 android:horizontalSpacing="8dp"
@@ -146,13 +160,12 @@
             <Button
                 android:id="@+id/btnBayarBooking"
                 android:layout_width="300dp"
+                android:layout_height="51dp"
                 android:layout_gravity="center"
-                android:layout_height="wrap_content"
                 android:backgroundTint="@color/primary"
                 android:text="Bayar Booking"
                 android:textColor="@android:color/white" />
         </LinearLayout>
-
     </ScrollView>
 
 </LinearLayout>

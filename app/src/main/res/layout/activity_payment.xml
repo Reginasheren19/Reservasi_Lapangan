@@ -59,7 +59,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
-                    android:text="Nama Pemesan: John Doe"
+                    android:text="Nama Pemesan: "
                     android:textSize="15sp"
                     android:fontFamily="@font/poppins_light"
                     android:textColor="#000000" />
@@ -99,32 +99,13 @@
                     android:fontFamily="@font/poppins_black"
                     android:textStyle="bold" />
 
-                <TextView
-                    android:id="@+id/fieldName"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp"
-                    android:text="Nama Lapangan: Lapangan Futsal ABC"
-                    android:textSize="15sp"
-                    android:fontFamily="@font/poppins_light"
-                    android:textColor="#000000" />
-
-                <TextView
-                    android:id="@+id/fieldAddress"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="4dp"
-                    android:text="Alamat: Jl. Merdeka No. 123, Jakarta"
-                    android:textSize="15sp"
-                    android:fontFamily="@font/poppins_light"
-                    android:textColor="#000000" />
 
                 <TextView
                     android:id="@+id/bookingDate"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="4dp"
-                    android:text="Tanggal Booking: 12 Januari 2025"
+                    android:text="Tanggal Booking: "
                     android:textSize="15sp"
                     android:fontFamily="@font/poppins_light"
                     android:textColor="#000000" />
@@ -134,7 +115,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="4dp"
-                    android:text="Jam Booking: 14:00 - 16:00"
+                    android:text="Jam Booking: "
                     android:textSize="15sp"
                     android:fontFamily="@font/poppins_light"
                     android:textColor="#000000" />
@@ -215,7 +196,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
-                    android:text="Kadaluarsa dalam 12 jam."
+                    android:text="Kadaluarsa dalam 2 jam."
                     android:textSize="14sp"
                     android:fontFamily="@font/poppins_light"
                     android:textColor="#FF0000" />

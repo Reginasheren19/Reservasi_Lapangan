@@ -8,6 +8,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
+import java.util.ArrayList;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -22,7 +23,6 @@ public class PaymentActivity extends AppCompatActivity {
     private TextView bookingDateTextView, bookingTimeTextView;
     private Button backToHomeButton;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -34,19 +34,23 @@ public class PaymentActivity extends AppCompatActivity {
         virtualAccountExpirationTextView = findViewById(R.id.virtualAccountExpiration);
         customerNameTextView = findViewById(R.id.customerName);
         customerPhoneTextView = findViewById(R.id.customerPhone);
-        fieldNameTextView = findViewById(R.id.fieldName);
-        fieldAddressTextView = findViewById(R.id.fieldAddress);
         bookingDateTextView = findViewById(R.id.bookingDate);
         bookingTimeTextView = findViewById(R.id.bookingTime);
         backToHomeButton = findViewById(R.id.backToHomeButton);
 
-        // Ambil data total harga dari Intent
+        // Ambil data dari Intent
         int idLapangan = getIntent().getIntExtra("idLapangan", -1); // Default -1 jika tidak ditemukan
         double totalHarga = getIntent().getDoubleExtra("totalHarga", 0);
+        String namaPemesan = getIntent().getStringExtra("nama");
+        String teleponPemesan = getIntent().getStringExtra("telepon");
+        String tanggalBooking = getIntent().getStringExtra("tanggalBooking");
+        ArrayList<String> selectedTimes = getIntent().getStringArrayListExtra("selectedTimes");
+
+
 
         // Validasi data yang diterima
-        if (idLapangan == -1) {
-            Toast.makeText(this, "Data lapangan tidak valid!", Toast.LENGTH_SHORT).show();
+        if (idLapangan == -1 || namaPemesan == null || teleponPemesan == null || selectedTimes == null) {
+            Toast.makeText(this, "Data pemesanan tidak valid!", Toast.LENGTH_SHORT).show();
             finish(); // Tutup activity jika data tidak valid
             return;
         }
@@ -58,11 +62,25 @@ public class PaymentActivity extends AppCompatActivity {
         // Tampilkan total harga
         tvTotalHarga.setText("Total Harga: Rp " + formattedTotalHarga);
 
+        // Tampilkan informasi pemesan
+        customerNameTextView.setText("Nama Pemesan: " + namaPemesan);
+        customerPhoneTextView.setText("Telepon: " + teleponPemesan);
+        
+
+        // Tampilkan tanggal booking
+        bookingDateTextView.setText("Tanggal Booking: " + tanggalBooking);
+
+        // Tampilkan waktu yang dipilih
+        StringBuilder times = new StringBuilder();
+        for (String time : selectedTimes) {
+            times.append(time).append(" ");
+        }
+        bookingTimeTextView.setText("Waktu: " + times.toString());
+
         // Simulasi Virtual Account ID
         String virtualAccount = idLapangan + generateUniqueCode();
         virtualAccountTextView.setText(virtualAccount);
         virtualAccountTextView.setVisibility(View.VISIBLE);
-
 
         // Simulasi waktu kadaluarsa Virtual Account (2 jam dari sekarang)
         Calendar calendar = Calendar.getInstance();
@@ -82,6 +100,7 @@ public class PaymentActivity extends AppCompatActivity {
             finish();  // Menutup PaymentActivity
         });
     }
+
     // Method untuk menghasilkan kode unik 16 digit
     private String generateUniqueCode() {
         Random random = new Random();
@@ -93,4 +112,3 @@ public class PaymentActivity extends AppCompatActivity {
         return uniqueCode.toString();
     }
 }
-
